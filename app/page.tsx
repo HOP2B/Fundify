@@ -7,7 +7,7 @@ import { HowItWorks } from "@/components/how-it-works";
 import { Testimonials } from "@/components/testimonials";
 import { Footer } from "@/components/footer";
 import { Categories } from "@/components/categories";
-import { CampaignsGrid } from "@/components/campaigns-grid";
+
 
 export default function Home() {
   return (

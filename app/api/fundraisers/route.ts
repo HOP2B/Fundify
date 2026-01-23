@@ -8,12 +8,19 @@ export async function GET(request: Request) {
 
     const { searchParams } = new URL(request.url);
     const category = searchParams.get('category');
+    const search = searchParams.get('search');
     const limit = parseInt(searchParams.get('limit') || '10');
     const skip = parseInt(searchParams.get('skip') || '0');
 
-    let query = {};
+    let query: any = {};
     if (category && category !== 'all') {
-      query = { category };
+      query.category = category;
+    }
+    if (search) {
+      query.$or = [
+        { title: { $regex: search, $options: 'i' } },
+        { description: { $regex: search, $options: 'i' } }
+      ];
     }
 
     const fundraisers = await Fundraiser.find(query)
