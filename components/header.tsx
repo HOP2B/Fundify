@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Search, ChevronDown, Menu, X } from "lucide-react";
+import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -21,10 +22,13 @@ export function Header() {
               <Search className="w-4 h-4" />
               Search
             </Link>
-            <button className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-foreground hover:text-muted-foreground transition-colors">
+            <Link
+              href="/categories"
+              className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-foreground hover:text-muted-foreground transition-colors"
+            >
               Donate
               <ChevronDown className="w-4 h-4" />
-            </button>
+            </Link>
             <button className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-foreground hover:text-muted-foreground transition-colors">
               Fundraise
               <ChevronDown className="w-4 h-4" />
@@ -54,17 +58,23 @@ export function Header() {
               About
               <ChevronDown className="w-4 h-4" />
             </button>
-            <Link
-              href="/signin"
-              className="px-3 py-2 text-sm font-medium text-foreground hover:text-muted-foreground transition-colors"
-            >
-              Sign in
-            </Link>
+            <SignedOut>
+              <Link
+                href="/auth/sign-in"
+                className="px-3 py-2 text-sm font-medium text-foreground hover:text-muted-foreground transition-colors"
+              >
+                Sign in
+              </Link>
+            </SignedOut>
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
             <Button
+              asChild
               variant="outline"
               className="ml-2 rounded-full border-foreground text-foreground hover:bg-foreground hover:text-background font-medium bg-transparent"
             >
-              Start a GoFundMe
+              <Link href="/start-fundme">Start a GoFundMe</Link>
             </Button>
           </nav>
 
@@ -88,10 +98,13 @@ export function Header() {
               <Link href="/search" className="px-3 py-2 text-sm font-medium">
                 Search
               </Link>
-              <button className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-left">
+              <Link
+                href="/categories"
+                className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-left"
+              >
                 Donate
                 <ChevronDown className="w-4 h-4" />
-              </button>
+              </Link>
               <button className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-left">
                 Fundraise
                 <ChevronDown className="w-4 h-4" />
@@ -100,12 +113,22 @@ export function Header() {
                 About
                 <ChevronDown className="w-4 h-4" />
               </button>
-              <Link href="/signin" className="px-3 py-2 text-sm font-medium">
-                Sign in
-              </Link>
+              <SignedOut>
+                <Link
+                  href="/auth/sign-in"
+                  className="px-3 py-2 text-sm font-medium"
+                >
+                  Sign in
+                </Link>
+              </SignedOut>
+              <SignedIn>
+                <div className="px-3 py-2">
+                  <UserButton />
+                </div>
+              </SignedIn>
               <div className="px-3 pt-2">
-                <Button className="w-full rounded-full">
-                  Start a GoFundMe
+                <Button asChild className="w-full rounded-full">
+                  <Link href="/start-fundme">Start a GoFundMe</Link>
                 </Button>
               </div>
             </nav>
