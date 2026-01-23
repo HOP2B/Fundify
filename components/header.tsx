@@ -12,9 +12,9 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 bg-card">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center h-16">
           {/* Left Navigation */}
-          <nav className="hidden md:flex items-center gap-1">
+          <nav className="flex-1 hidden md:flex items-center gap-1 justify-start">
             <Link
               href="/search"
               className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-foreground hover:text-muted-foreground transition-colors"
@@ -29,14 +29,10 @@ export function Header() {
               Donate
               <ChevronDown className="w-4 h-4" />
             </Link>
-            <button className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-foreground hover:text-muted-foreground transition-colors">
-              Fundraise
-              <ChevronDown className="w-4 h-4" />
-            </button>
           </nav>
 
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-1">
+          <Link href="/" className="flex-shrink-0 flex items-center gap-1">
             <span className="text-xl font-bold text-primary tracking-tight">
               gofundme
             </span>
@@ -53,9 +49,13 @@ export function Header() {
           </Link>
 
           {/* Right Navigation */}
-          <nav className="hidden md:flex items-center gap-1">
+          <nav className="flex-1 hidden md:flex items-center gap-1 justify-end">
             <button className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-foreground hover:text-muted-foreground transition-colors">
               About
+              <ChevronDown className="w-4 h-4" />
+            </button>
+            <button className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-foreground hover:text-muted-foreground transition-colors">
+              Fundraise
               <ChevronDown className="w-4 h-4" />
             </button>
             <SignedOut>
@@ -69,13 +69,6 @@ export function Header() {
             <SignedIn>
               <UserButton />
             </SignedIn>
-            <Button
-              asChild
-              variant="outline"
-              className="ml-2 rounded-full border-foreground text-foreground hover:bg-foreground hover:text-background font-medium bg-transparent"
-            >
-              <Link href="/start-fundme">Start a GoFundMe</Link>
-            </Button>
           </nav>
 
           {/* Mobile Menu Button */}
