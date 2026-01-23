@@ -1,5 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 const categories = [
   {
@@ -64,6 +67,8 @@ function CategoryCircle({
 }
 
 export function Hero() {
+  const router = useRouter();
+
   return (
     <section className="relative min-h-[580px] lg:min-h-[680px] overflow-hidden bg-background">
       {/* Decorative blur elements */}
@@ -88,6 +93,7 @@ export function Hero() {
           <Button
             size="lg"
             className="rounded-full px-10 py-6 text-base font-medium h-auto"
+            onClick={() => router.push('/start-fundme')}
           >
             Start a GoFundMe
           </Button>
