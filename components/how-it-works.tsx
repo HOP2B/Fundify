@@ -66,7 +66,7 @@ export function HowItWorks() {
         </div>
 
         <div className="text-center mt-12">
-          <Link href="/start-fundme">
+          <Link href="/donate">
               <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground px-8">
             Start your fundraiser
           </Button>

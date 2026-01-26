@@ -109,7 +109,7 @@ export default function CategoriesPage() {
                 Find causes that matter to you and make a difference
               </p>
             </div>
-            <Link href="/start-fundme">
+            <Link href="/donate">
               <Button size="lg" className="rounded-full px-8">
                 Start GoFundMe
               </Button>
@@ -181,7 +181,7 @@ export default function CategoriesPage() {
             <p className="text-muted-foreground mb-6">
               No fundraisers found in this category.
             </p>
-            <Link href="/start-fundme">
+            <Link href="/donate">
               <Button size="lg" className="rounded-full">
                 Start Your Own Fundraiser
               </Button>
