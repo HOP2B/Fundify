@@ -7,32 +7,32 @@ import { useRouter } from "next/navigation";
 const categories = [
   {
     label: "Your cause",
-    image: "https://via.placeholder.com/200x200/ffe4e6/ffffff?text=Your+Cause",
+    image: "/images/your-cause.svg",
     className: "top-[12%] left-[8%] w-36 h-36 lg:w-44 lg:h-44",
   },
   {
     label: "Medical",
-    image: "https://via.placeholder.com/200x200/e0f2fe/ffffff?text=Medical",
+    image: "/images/medical.svg",
     className: "top-[48%] left-[1%] w-32 h-32 lg:w-40 lg:h-40",
   },
   {
     label: "Emergency",
-    image: "https://via.placeholder.com/200x200/fee2e2/ffffff?text=Emergency",
+    image: "/images/emergency.svg",
     className: "top-[62%] left-[14%] w-36 h-36 lg:w-44 lg:h-44",
   },
   {
     label: "Education",
-    image: "https://via.placeholder.com/200x200/dbeafe/ffffff?text=Education",
+    image: "/images/education.svg",
     className: "top-[8%] right-[6%] w-36 h-36 lg:w-44 lg:h-44",
   },
   {
     label: "Animal",
-    image: "https://via.placeholder.com/200x200/f0fdf4/ffffff?text=Animal",
+    image: "/images/animal.svg",
     className: "top-[42%] right-[0%] w-28 h-28 lg:w-36 lg:h-36",
   },
   {
     label: "Business",
-    image: "https://via.placeholder.com/200x200/fef3c7/ffffff?text=Business",
+    image: "/images/business.svg",
     className: "top-[58%] right-[12%] w-32 h-32 lg:w-40 lg:h-40",
   },
 ];
