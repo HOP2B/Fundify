@@ -3,13 +3,14 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Search, ChevronDown, Menu, X } from "lucide-react";
+import { Search, ChevronDown, Menu, X, Heart } from "lucide-react";
 import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { useLanguage } from "@/lib/LanguageContext";
 
 export function Header() {
   const { language, setLanguage, t } = useLanguage();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [donateDropdownOpen, setDonateDropdownOpen] = useState(false);
 
   return (
     <header className="sticky top-0 z-50 bg-card">
@@ -24,13 +25,29 @@ export function Header() {
               <Search className="w-4 h-4" />
               Search
             </Link>
-            <Link
-              href="/categories"
-              className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-foreground hover:text-muted-foreground transition-colors"
+            <div
+              className="relative"
+              onMouseEnter={() => setDonateDropdownOpen(true)}
+              onMouseLeave={() => setDonateDropdownOpen(false)}
             >
-              Donate
-              <ChevronDown className="w-4 h-4" />
-            </Link>
+              <button className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-foreground hover:text-muted-foreground transition-colors">
+                Donate
+                <ChevronDown className="w-4 h-4" />
+              </button>
+              {donateDropdownOpen && (
+                <div className="absolute top-full left-0 mt-1 w-48 bg-card border border-border rounded-lg shadow-xl z-50 animate-in fade-in-0 zoom-in-95">
+                  <div className="p-1">
+                    <Link
+                      href="/categories"
+                      className="flex items-center gap-2 px-3 py-2 text-sm text-foreground hover:bg-accent hover:text-accent-foreground rounded-md transition-all duration-200"
+                    >
+                      <Heart className="w-4 h-4 text-primary" />
+                      Browse Categories
+                    </Link>
+                  </div>
+                </div>
+              )}
+            </div>
           </nav>
 
           {/* Logo */}
