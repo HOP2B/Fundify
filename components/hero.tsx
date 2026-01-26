@@ -7,32 +7,32 @@ import { useRouter } from "next/navigation";
 const categories = [
   {
     label: "Your cause",
-    image: "/images/your-cause.svg",
+    image: "https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?w=200&h=200&fit=crop&crop=center",
     className: "top-[12%] left-[8%] w-36 h-36 lg:w-44 lg:h-44",
   },
   {
     label: "Medical",
-    image: "/images/medical.svg",
+    image: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=200&h=200&fit=crop&crop=center",
     className: "top-[48%] left-[1%] w-32 h-32 lg:w-40 lg:h-40",
   },
   {
     label: "Emergency",
-    image: "/images/emergency.svg",
+    image: "https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=200&h=200&fit=crop&crop=center",
     className: "top-[62%] left-[14%] w-36 h-36 lg:w-44 lg:h-44",
   },
   {
     label: "Education",
-    image: "/images/education.svg",
+    image: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=200&h=200&fit=crop&crop=center",
     className: "top-[8%] right-[6%] w-36 h-36 lg:w-44 lg:h-44",
   },
   {
     label: "Animal",
-    image: "/images/animal.svg",
+    image: "https://images.unsplash.com/photo-1544568100-847a948585b9?w=200&h=200&fit=crop&crop=center",
     className: "top-[42%] right-[0%] w-28 h-28 lg:w-36 lg:h-36",
   },
   {
     label: "Business",
-    image: "/images/business.svg",
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=center",
     className: "top-[58%] right-[12%] w-32 h-32 lg:w-40 lg:h-40",
   },
 ];
@@ -54,7 +54,7 @@ function CategoryCircle({
         {/* Image container */}
         <div className="absolute inset-[3px] rounded-full overflow-hidden">
           <Image
-            src={image || "/placeholder.svg"}
+            src={image}
             alt={label}
             fill
             className="object-cover"
