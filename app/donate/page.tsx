@@ -156,6 +156,18 @@ export default function StartFundmePage() {
     }
   };
 
+  const getStepTitle = (step: number): string => {
+    switch (step) {
+      case 1: return "Choose Category";
+      case 2: return "Who's it for?";
+      case 3: return "Set Goal";
+      case 4: return "Add Photo";
+      case 5: return "Tell Your Story";
+      case 6: return "Review & Create";
+      default: return "Step";
+    }
+  };
+
   const renderStep = () => {
     switch (currentStep) {
       case 1:
@@ -412,103 +424,138 @@ export default function StartFundmePage() {
         <RedirectToSignIn />
       </SignedOut>
       <SignedIn>
-        <div className="min-h-screen bg-background py-12">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted">
+          {/* Decorative background elements */}
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            <div className="absolute top-0 left-0 w-full h-full">
+              <div className="absolute top-20 left-10 w-72 h-72 bg-primary/5 rounded-full blur-3xl" />
+              <div className="absolute top-40 right-10 w-96 h-96 bg-primary/3 rounded-full blur-4xl" />
+              <div className="absolute bottom-20 left-1/3 w-80 h-80 bg-primary/2 rounded-full blur-3xl" />
+            </div>
+          </div>
+
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              <div className="bg-card rounded-lg shadow-sm p-8">
-                <h3 className="text-2xl font-semibold mb-4">
-                  Start Your Fundraiser
-                </h3>
-                <p className="text-muted-foreground mb-6">
-                  Create a fundraiser to support causes that matter to you.
-                  Choose a category, set your goal, and share your story.
-                </p>
-                <div className="grid grid-cols-3 gap-4">
-                  <div className="flex flex-col items-center">
-                    <div className="p-3 bg-primary/10 rounded-full mb-2">
-                      <Heart className="w-6 h-6 text-primary" />
-                    </div>
-                    <span className="text-sm text-center">Medical</span>
+              {/* Left Panel - Info */}
+              <div className="bg-card/50 backdrop-blur-sm rounded-2xl shadow-xl border border-border/50 p-8 lg:p-12">
+                <div className="space-y-6">
+                  <div className="text-center lg:text-left">
+                    <h3 className="text-3xl lg:text-4xl font-bold bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent mb-4">
+                      Start Your Fundraiser
+                    </h3>
+                    <p className="text-lg text-muted-foreground leading-relaxed">
+                      Create a fundraiser to support causes that matter to you.
+                      Choose a category, set your goal, and share your story with
+                      the world.
+                    </p>
                   </div>
-                  <div className="flex flex-col items-center">
-                    <div className="p-3 bg-primary/10 rounded-full mb-2">
-                      <GraduationCap className="w-6 h-6 text-primary" />
-                    </div>
-                    <span className="text-sm text-center">Education</span>
+
+                  {/* Category Icons Grid */}
+                  <div className="grid grid-cols-3 gap-6 mt-8">
+                    {categories.slice(0, 6).map((category) => {
+                      const Icon = category.icon;
+                      return (
+                        <div
+                          key={category.id}
+                          className="group flex flex-col items-center text-center p-6 rounded-xl hover:bg-primary/10 transition-all duration-300 hover:scale-105"
+                        >
+                          <div className="p-4 bg-primary/10 rounded-full mb-4 group-hover:bg-primary/20 transition-colors">
+                            <Icon className="w-8 h-8 text-primary" />
+                          </div>
+                          <span className="text-sm font-medium text-foreground">
+                            {category.name}
+                          </span>
+                        </div>
+                      );
+                    })}
                   </div>
-                  <div className="flex flex-col items-center">
-                    <div className="p-3 bg-primary/10 rounded-full mb-2">
-                      <PawPrint className="w-6 h-6 text-primary" />
+
+                  {/* Stats */}
+                  <div className="grid grid-cols-3 gap-4 mt-8 pt-6 border-t border-border/50">
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-primary">$1B+</div>
+                      <div className="text-xs text-muted-foreground">
+                        Raised
+                      </div>
                     </div>
-                    <span className="text-sm text-center">Animals</span>
-                  </div>
-                  <div className="flex flex-col items-center">
-                    <div className="p-3 bg-primary/10 rounded-full mb-2">
-                      <Briefcase className="w-6 h-6 text-primary" />
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-primary">50M+</div>
+                      <div className="text-xs text-muted-foreground">
+                        Donors
+                      </div>
                     </div>
-                    <span className="text-sm text-center">Business</span>
-                  </div>
-                  <div className="flex flex-col items-center">
-                    <div className="p-3 bg-primary/10 rounded-full mb-2">
-                      <Flame className="w-6 h-6 text-primary" />
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-primary">100%</div>
+                      <div className="text-xs text-muted-foreground">
+                        Safe
+                      </div>
                     </div>
-                    <span className="text-sm text-center">Emergency</span>
-                  </div>
-                  <div className="flex flex-col items-center">
-                    <div className="p-3 bg-primary/10 rounded-full mb-2">
-                      <Star className="w-6 h-6 text-primary" />
-                    </div>
-                    <span className="text-sm text-center">Your Cause</span>
                   </div>
                 </div>
               </div>
-              <div className="bg-card rounded-lg shadow-sm p-8">
-                <div className="mb-8">
-                  <div className="flex justify-between items-center mb-4">
-                    {[1, 2, 3, 4, 5, 6].map((step) => (
-                      <div
-                        key={step}
-                        className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
-                          step <= currentStep
-                            ? "bg-primary text-primary-foreground"
-                            : "bg-muted text-muted-foreground"
-                        }`}
+
+              {/* Right Panel - Form */}
+              <div className="bg-card/80 backdrop-blur-sm rounded-2xl shadow-xl border border-border/50 p-8 lg:p-12">
+                <div className="space-y-8">
+                  {/* Progress Indicator */}
+                  <div className="text-center">
+                    <div className="flex justify-center items-center gap-4 mb-4">
+                      {[1, 2, 3, 4, 5, 6].map((step) => (
+                        <div
+                          key={step}
+                          className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold transition-all duration-300 ${
+                            step <= currentStep
+                              ? "bg-gradient-to-r from-primary to-primary/60 text-white shadow-lg shadow-primary/20"
+                              : "bg-muted text-muted-foreground border-2 border-border"
+                          }`}
+                        >
+                          {step}
+                        </div>
+                      ))}
+                    </div>
+                    <div className="text-sm text-muted-foreground font-medium">
+                      Step {currentStep} of 6 • {getStepTitle(currentStep)}
+                    </div>
+                  </div>
+
+                  {/* Form Content */}
+                  <div className="space-y-6">
+                    {renderStep()}
+                  </div>
+
+                  {/* Navigation Buttons */}
+                  <div className="flex justify-between items-center pt-6 border-t border-border/50">
+                    {currentStep > 1 && (
+                      <Button
+                        type="button"
+                        variant="outline"
+                        onClick={prevStep}
+                        className="group hover:bg-primary/10 hover:border-primary transition-all duration-300"
                       >
-                        {step}
-                      </div>
-                    ))}
+                        <span className="group-hover:text-primary transition-colors">
+                          ← Previous
+                        </span>
+                      </Button>
+                    )}
+                    {currentStep < 6 ? (
+                      <Button
+                        type="button"
+                        onClick={nextStep}
+                        className="ml-auto bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary text-white px-8 py-3 rounded-full font-semibold shadow-lg hover:shadow-primary/20 transition-all duration-300 transform hover:scale-105"
+                      >
+                        Next →
+                      </Button>
+                    ) : (
+                      <Button
+                        type="button"
+                        onClick={handleSubmit}
+                        disabled={isSubmitting}
+                        className="ml-auto bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary text-white px-8 py-3 rounded-full font-semibold shadow-lg hover:shadow-primary/20 transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+                      >
+                        {isSubmitting ? "Creating..." : "Create Fundraiser"}
+                      </Button>
+                    )}
                   </div>
-                  <div className="text-sm text-muted-foreground text-center">
-                    Step {currentStep} of 6
-                  </div>
-                </div>
-
-                {renderStep()}
-
-                <div className="flex justify-between mt-8">
-                  {currentStep > 1 && (
-                    <Button type="button" variant="outline" onClick={prevStep}>
-                      Previous
-                    </Button>
-                  )}
-                  {currentStep < 6 ? (
-                    <Button
-                      type="button"
-                      onClick={nextStep}
-                      className="ml-auto"
-                    >
-                      Next
-                    </Button>
-                  ) : (
-                    <Button
-                      type="button"
-                      onClick={handleSubmit}
-                      disabled={isSubmitting}
-                      className="ml-auto"
-                    >
-                      {isSubmitting ? "Creating..." : "Create Fundraiser"}
-                    </Button>
-                  )}
                 </div>
               </div>
             </div>
