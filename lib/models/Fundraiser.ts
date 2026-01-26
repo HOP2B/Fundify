@@ -21,7 +21,7 @@ const FundraiserSchema = new mongoose.Schema({
   category: {
     type: String,
     required: true,
-    enum: ['medical', 'education', 'emergency', 'animals', 'environment', 'community', 'sports', 'other'],
+    enum: ['medical', 'memorial', 'emergency', 'nonprofit', 'education', 'animals', 'environment', 'business', 'community', 'creative', 'event', 'faith', 'family', 'sports', 'travel', 'volunteer', 'wishes', 'competition', 'other'],
   },
   image: {
     type: String, // URL or base64

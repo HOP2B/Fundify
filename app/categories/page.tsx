@@ -43,7 +43,7 @@ const categories = [
   { id: "emergency", name: "Emergency", icon: Flame },
   { id: "nonprofit", name: "Nonprofit", icon: Users },
   { id: "education", name: "Education", icon: GraduationCap },
-  { id: "animal", name: "Animal", icon: PawPrint },
+  { id: "animals", name: "Animal", icon: PawPrint },
   { id: "environment", name: "Environment", icon: TreePine },
   { id: "business", name: "Business", icon: Briefcase },
   { id: "community", name: "Community", icon: Users },
@@ -91,7 +91,7 @@ export default function CategoriesPage() {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <div className="bg-card shadow-sm border-b">
+      <div className="bg-card shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <button
             onClick={() => router.back()}
@@ -125,8 +125,7 @@ export default function CategoriesPage() {
         {/* Category Grid */}
         <div className="mb-12">
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
-            {categories.slice(1).map((category) => {
-              // Skip "all" since we'll show all by default
+            {categories.map((category) => {
               const Icon = category.icon;
               const isSelected = selectedCategory === category.id;
               return (

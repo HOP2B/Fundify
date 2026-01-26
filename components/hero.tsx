@@ -7,32 +7,32 @@ import { useRouter } from "next/navigation";
 const categories = [
   {
     label: "Your cause",
-    image: "/images/your-cause.jpg",
+    image: "https://via.placeholder.com/200x200/ffe4e6/ffffff?text=Your+Cause",
     className: "top-[12%] left-[8%] w-36 h-36 lg:w-44 lg:h-44",
   },
   {
     label: "Medical",
-    image: "/images/medical.jpg",
+    image: "https://via.placeholder.com/200x200/e0f2fe/ffffff?text=Medical",
     className: "top-[48%] left-[1%] w-32 h-32 lg:w-40 lg:h-40",
   },
   {
     label: "Emergency",
-    image: "/images/emergency.jpg",
+    image: "https://via.placeholder.com/200x200/fee2e2/ffffff?text=Emergency",
     className: "top-[62%] left-[14%] w-36 h-36 lg:w-44 lg:h-44",
   },
   {
     label: "Education",
-    image: "/images/education.jpg",
+    image: "https://via.placeholder.com/200x200/dbeafe/ffffff?text=Education",
     className: "top-[8%] right-[6%] w-36 h-36 lg:w-44 lg:h-44",
   },
   {
     label: "Animal",
-    image: "/images/animal.jpg",
+    image: "https://via.placeholder.com/200x200/f0fdf4/ffffff?text=Animal",
     className: "top-[42%] right-[0%] w-28 h-28 lg:w-36 lg:h-36",
   },
   {
     label: "Business",
-    image: "/images/business.jpg",
+    image: "https://via.placeholder.com/200x200/fef3c7/ffffff?text=Business",
     className: "top-[58%] right-[12%] w-32 h-32 lg:w-40 lg:h-40",
   },
 ];
@@ -53,7 +53,12 @@ function CategoryCircle({
         <div className="absolute inset-0 rounded-full border-[3px] border-primary transition-transform group-hover:scale-105" />
         {/* Image container */}
         <div className="absolute inset-[3px] rounded-full overflow-hidden">
-          <Image src={image || "/placeholder.svg"} alt={label} fill className="object-cover" />
+          <Image
+            src={image || "/placeholder.svg"}
+            alt={label}
+            fill
+            className="object-cover"
+          />
         </div>
         {/* Label */}
         <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 bg-card px-3 py-1.5 rounded-md shadow-sm border border-border">
@@ -93,7 +98,7 @@ export function Hero() {
           <Button
             size="lg"
             className="rounded-full px-10 py-6 text-base font-medium h-auto"
-            onClick={() => router.push('/start-fundme')}
+            onClick={() => router.push("/start-fundme")}
           >
             Start a GoFundMe
           </Button>
