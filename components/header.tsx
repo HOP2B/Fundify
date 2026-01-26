@@ -140,7 +140,7 @@ export function Header() {
               </SignedIn>
               <div className="px-3 pt-2">
                 <Button asChild className="w-full rounded-full">
-                  <Link href="/start-fundme">Start a GoFundMe</Link>
+                  <Link href="/donate">Start a GoFundMe</Link>
                 </Button>
               </div>
             </nav>

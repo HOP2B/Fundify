@@ -92,7 +92,7 @@ export default function FundraisersPage() {
                 ? "No fundraisers match your search."
                 : "No fundraisers available yet."}
             </p>
-            <Link href="/start-fundme">
+            <Link href="/donate">
               <Button>Start Your Own Fundraiser</Button>
             </Link>
           </div>
