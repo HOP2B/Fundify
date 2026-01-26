@@ -25,7 +25,7 @@ const FundraiserSchema = new mongoose.Schema({
   },
   image: {
     type: String, // URL or base64
-    required: true,
+    required: false,
   },
   forWhom: {
     type: String,

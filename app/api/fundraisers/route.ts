@@ -9,6 +9,7 @@ export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     const category = searchParams.get('category');
     const search = searchParams.get('search');
+    const creator = searchParams.get('creator');
     const limit = parseInt(searchParams.get('limit') || '10');
     const skip = parseInt(searchParams.get('skip') || '0');
 
@@ -21,6 +22,9 @@ export async function GET(request: Request) {
         { title: { $regex: search, $options: 'i' } },
         { description: { $regex: search, $options: 'i' } }
       ];
+    }
+    if (creator) {
+      query.creator = creator;
     }
 
     const fundraisers = await Fundraiser.find(query)
@@ -45,7 +49,7 @@ export async function POST(request: Request) {
     const { title, description, goal, category, image, forWhom, creator } = body;
 
     // Validate required fields
-    if (!title || !description || !goal || !category || !image || !forWhom || !creator) {
+    if (!title || !description || !goal || !category || !forWhom || !creator) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 

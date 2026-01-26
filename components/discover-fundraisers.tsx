@@ -1,116 +1,103 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import Image from "next/image"
-import { ChevronDown, ArrowLeft, ArrowRight } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { useState, useEffect } from "react";
+import Image from "next/image";
+import { ChevronDown, ArrowLeft, ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
-const campaigns = [
-  {
-    id: 1,
-    title: "Life Saving Treatment for Michelle!",
-    donations: "2.9K",
-    raised: "£52,148",
-    progress: 85,
-    image: "/placeholder.svg?height=600&width=600",
-    featured: true,
-  },
-  {
-    id: 2,
-    title: "Survivors of the 11-01-26 Wigan Road Collision",
-    donations: "2.2K",
-    raised: "£48,321",
-    progress: 72,
-    image: "/placeholder.svg?height=300&width=400",
-    featured: false,
-  },
-  {
-    id: 3,
-    title: "Dona per Alessia",
-    donations: "1K",
-    raised: "€20,402",
-    progress: 65,
-    image: "/placeholder.svg?height=300&width=400",
-    featured: false,
-  },
-  {
-    id: 4,
-    title: "Avoir accès à un traitement contre le cancer qui fonctionne",
-    donations: "1.3K",
-    raised: "$126,086",
-    progress: 45,
-    image: "/placeholder.svg?height=300&width=400",
-    featured: false,
-  },
-  {
-    id: 5,
-    title: "Honoring Hudson: A Bright Light Taken Too Soon",
-    donations: "956",
-    raised: "$75,325",
-    progress: 78,
-    image: "/placeholder.svg?height=300&width=400",
-    featured: false,
-  },
-]
+interface Fundraiser {
+  _id: string;
+  title: string;
+  description: string;
+  goal: number;
+  raised: number;
+  category: string;
+  image: string;
+  createdAt: string;
+}
 
-function CampaignCard({ 
-  title, 
-  donations, 
-  raised, 
-  progress, 
-  image, 
-  featured = false 
+function CampaignCard({
+  fundraiser,
+  featured = false,
 }: {
-  title: string
-  donations: string
-  raised: string
-  progress: number
-  image: string
-  featured?: boolean
+  fundraiser: Fundraiser;
+  featured?: boolean;
 }) {
+  const progress = Math.min((fundraiser.raised / fundraiser.goal) * 100, 100);
   return (
     <div className={`group cursor-pointer ${featured ? "row-span-2" : ""}`}>
-      <div className={`relative overflow-hidden rounded-lg ${featured ? "h-full min-h-[420px]" : "aspect-[4/3]"}`}>
+      <div
+        className={`relative overflow-hidden rounded-lg ${featured ? "h-full min-h-[420px]" : "aspect-[4/3]"}`}
+      >
         <Image
-          src={image || "/placeholder.svg"}
-          alt={title}
+          src={fundraiser.image || "/placeholder.svg"}
+          alt={fundraiser.title}
           fill
           className="object-cover transition-transform duration-300 group-hover:scale-105"
         />
         <div className="absolute bottom-3 left-3">
-          <span className="bg-foreground/80 text-background text-xs font-medium px-2.5 py-1 rounded">
-            {donations} donations
+          <span className="bg-foreground/80 text-background text-xs font-medium px-2.5 py-1 rounded capitalize">
+            {fundraiser.category}
           </span>
         </div>
       </div>
       <div className="mt-3">
-        <h3 className={`font-semibold text-foreground leading-snug line-clamp-2 group-hover:underline ${featured ? "text-lg" : "text-sm"}`}>
-          {title}
+        <h3
+          className={`font-semibold text-foreground leading-snug line-clamp-2 group-hover:underline ${featured ? "text-lg" : "text-sm"}`}
+        >
+          {fundraiser.title}
         </h3>
         <div className="mt-3">
           <div className="w-full bg-muted rounded-full h-1.5 overflow-hidden">
-            <div 
+            <div
               className="bg-primary h-full rounded-full transition-all duration-500"
               style={{ width: `${progress}%` }}
             />
           </div>
           <p className="text-sm text-muted-foreground mt-2">
-            <span className="font-semibold text-foreground">{raised}</span> raised
+            <span className="font-semibold text-foreground">
+              ${fundraiser.raised.toLocaleString()}
+            </span>{" "}
+            raised of ${fundraiser.goal.toLocaleString()}
           </p>
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export function DiscoverFundraisers() {
-  const [filter, setFilter] = useState("Happening worldwide")
-  const [isOpen, setIsOpen] = useState(false)
+  const [filter, setFilter] = useState("Happening worldwide");
+  const [isOpen, setIsOpen] = useState(false);
+  const [fundraisers, setFundraisers] = useState<Fundraiser[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const filters = ["Happening worldwide", "Near me", "United States", "Europe", "Asia"]
+  const filters = [
+    "Happening worldwide",
+    "Near me",
+    "United States",
+    "Europe",
+    "Asia",
+  ];
 
-  const featuredCampaign = campaigns.find(c => c.featured)
-  const gridCampaigns = campaigns.filter(c => !c.featured)
+  useEffect(() => {
+    fetchFundraisers();
+  }, []);
+
+  const fetchFundraisers = async () => {
+    try {
+      const response = await fetch("/api/fundraisers?limit=5");
+      const data = await response.json();
+      setFundraisers(data.fundraisers || []);
+    } catch (error) {
+      console.error("Error fetching fundraisers:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const featuredFundraiser = fundraisers[0];
+  const gridFundraisers = fundraisers.slice(1);
 
   return (
     <section className="py-16 bg-background">
@@ -127,7 +114,9 @@ export function DiscoverFundraisers() {
               className="flex items-center gap-2 px-5 py-2.5 border border-border rounded-full bg-background hover:bg-muted transition-colors"
             >
               <span className="text-sm font-medium">{filter}</span>
-              <ChevronDown className={`w-4 h-4 transition-transform ${isOpen ? "rotate-180" : ""}`} />
+              <ChevronDown
+                className={`w-4 h-4 transition-transform ${isOpen ? "rotate-180" : ""}`}
+              />
             </button>
             {isOpen && (
               <div className="absolute top-full left-0 mt-2 w-48 bg-card border border-border rounded-lg shadow-lg z-10">
@@ -135,8 +124,8 @@ export function DiscoverFundraisers() {
                   <button
                     key={f}
                     onClick={() => {
-                      setFilter(f)
-                      setIsOpen(false)
+                      setFilter(f);
+                      setIsOpen(false);
                     }}
                     className={`w-full text-left px-4 py-2.5 text-sm hover:bg-muted transition-colors first:rounded-t-lg last:rounded-b-lg ${filter === f ? "bg-muted font-medium" : ""}`}
                   >
@@ -169,22 +158,35 @@ export function DiscoverFundraisers() {
         </div>
 
         {/* Campaign Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          {/* Featured Large Card */}
-          {featuredCampaign && (
-            <div className="lg:col-span-5">
-              <CampaignCard {...featuredCampaign} />
-            </div>
-          )}
-
-          {/* 2x2 Grid */}
-          <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6">
-            {gridCampaigns.map((campaign) => (
-              <CampaignCard key={campaign.id} {...campaign} />
-            ))}
+        {loading ? (
+          <div className="text-center py-16">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
+            <p className="mt-4 text-muted-foreground">Loading fundraisers...</p>
           </div>
-        </div>
+        ) : fundraisers.length === 0 ? (
+          <div className="text-center py-16">
+            <p className="text-muted-foreground">
+              No fundraisers available yet.
+            </p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            {/* Featured Large Card */}
+            {featuredFundraiser && (
+              <div className="lg:col-span-5">
+                <CampaignCard fundraiser={featuredFundraiser} featured={true} />
+              </div>
+            )}
+
+            {/* 2x2 Grid */}
+            <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6">
+              {gridFundraisers.map((fundraiser) => (
+                <CampaignCard key={fundraiser._id} fundraiser={fundraiser} />
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </section>
-  )
+  );
 }
