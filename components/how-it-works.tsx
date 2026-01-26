@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button"
+import Link from "next/link"
 import { FileText, Share2, DollarSign, CheckCircle } from "lucide-react"
 
 const steps = [
@@ -65,9 +66,11 @@ export function HowItWorks() {
         </div>
 
         <div className="text-center mt-12">
-          <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground px-8">
+          <Link href="/start-fundme">
+              <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground px-8">
             Start your fundraiser
           </Button>
+            </Link>
         </div>
       </div>
     </section>
