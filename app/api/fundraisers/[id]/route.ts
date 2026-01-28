@@ -4,12 +4,13 @@ import { NextResponse } from 'next/server';
 
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     await connectToDatabase();
 
-    const fundraiser = await Fundraiser.findById(params.id);
+    const { id } = await params;
+    const fundraiser = await Fundraiser.findById(id);
 
     if (!fundraiser) {
       return NextResponse.json({ error: 'Fundraiser not found' }, { status: 404 });
@@ -24,7 +25,7 @@ export async function GET(
 
 export async function POST(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     await connectToDatabase();
@@ -36,7 +37,8 @@ export async function POST(
       return NextResponse.json({ error: 'Invalid donation amount' }, { status: 400 });
     }
 
-    const fundraiser = await Fundraiser.findById(params.id);
+    const { id } = await params;
+    const fundraiser = await Fundraiser.findById(id);
 
     if (!fundraiser) {
       return NextResponse.json({ error: 'Fundraiser not found' }, { status: 404 });

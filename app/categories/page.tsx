@@ -195,15 +195,21 @@ export default function CategoriesPage() {
                 className="bg-card rounded-xl shadow-sm overflow-hidden hover:shadow-lg transition-all duration-300 border hover:border-primary/20"
               >
                 <div className="aspect-video bg-muted relative">
-                  <img
-                    src={fundraiser.image}
-                    alt={fundraiser.title}
-                    className="w-full h-full object-cover"
-                    onError={(e) => {
-                      e.currentTarget.src =
-                        "/placeholder.svg?height=300&width=400";
-                    }}
-                  />
+                  {fundraiser.image ? (
+                    <img
+                      src={fundraiser.image}
+                      alt={fundraiser.title}
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        e.currentTarget.src =
+                          "/placeholder.svg?height=300&width=400";
+                      }}
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center text-muted-foreground">
+                      No image
+                    </div>
+                  )}
                 </div>
                 <div className="p-6">
                   <h3 className="text-xl font-semibold text-foreground mb-3 line-clamp-2">
