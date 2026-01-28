@@ -33,10 +33,10 @@ export function StatsSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-4 text-balance">
-            The most trusted online fundraising platform
+            Хамгийн найдвартай онлайн хандивын платформ
           </h2>
           <p className="text-primary-foreground/80 text-lg max-w-2xl mx-auto">
-            Join millions of people making a difference in their communities every day
+            Өдөр бүр өөрсдийн орон нутгийг өөрчилж, сайн сайхныг бүтээж буй сая сая хүмүүст нэгдээрэй
           </p>
         </div>
         

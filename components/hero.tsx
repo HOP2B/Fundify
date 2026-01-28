@@ -90,10 +90,10 @@ export function Hero() {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 lg:pt-20 pb-8">
         <div className="text-center max-w-xl mx-auto">
           <p className="text-sm font-bold text-foreground tracking-wide mb-6">
-            #1 crowdfunding platform
+            Монголын хамгийн эхний donate өгөх platform
           </p>
           <h1 className="font-serif text-[3.25rem] sm:text-6xl lg:text-7xl text-foreground leading-[1.05] mb-10 text-balance">
-            Successful fundraisers start here
+            Амжилттай хандивын аян эндээс эхэлнэ
           </h1>
           <Button
             size="lg"

@@ -6,26 +6,26 @@ const steps = [
   {
     icon: FileText,
     step: "01",
-    title: "Start your fundraiser",
-    description: "Set up your fundraiser in just a few minutes. Add your story, photos, and set your goal.",
+    title: "Хандивын аянаа эхлүүлэх",
+    description: "Хандивын аянаа зөвхөн хэдхэн минутад үүсгээрэй. Өөрийн түүхээ, зургуудыг нэмээд зорилгоо тогтооно уу.",
   },
   {
     icon: Share2,
     step: "02",
-    title: "Share with friends",
-    description: "Share your fundraiser on social media, email, and messaging apps to reach more people.",
+    title: "Найз нөхөдтэйгээ хуваалцах",
+    description: "Хандивын аянаа олон хүнд хүргэхийн тулд нийгмийн сүлжээ, имэйл, мессеж апп-уудаар хуваалцаарай.",
   },
   {
     icon: DollarSign,
     step: "03",
-    title: "Collect donations",
-    description: "Receive donations directly to your bank account. Track progress in real-time.",
+    title: "Хандив цуглуулах",
+    description: "Хандивыг шууд өөрийн банкны данс руу хүлээн авч, явцыг бодит цаг хугацаанд хянаарай.",
   },
   {
     icon: CheckCircle,
     step: "04",
-    title: "Withdraw funds",
-    description: "Easily withdraw your funds at any time. No penalties for not reaching your goal.",
+    title: "Мөнгөө татах",
+    description: "Мөнгө оруулсан хандивыг хүссэн үедээ амархан авах боломжтой. Зорилгодоо хүрээгүй тохиолдолд ямар ч торгууль байхгүй.",
   },
 ]
 
@@ -35,7 +35,7 @@ export function HowItWorks() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            How FundRise works
+            FundRise хэрхэн ажилладаг вэ
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             Starting a fundraiser is simple and free. Here's how it works.
@@ -68,7 +68,7 @@ export function HowItWorks() {
         <div className="text-center mt-12">
           <Link href="/donate">
               <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground px-8">
-            Start your fundraiser
+            “Хандивын аянаа эхлүүлэх”
           </Button>
             </Link>
         </div>

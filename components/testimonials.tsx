@@ -3,9 +3,9 @@ import { Star, Quote } from "lucide-react"
 
 const testimonials = [
   {
-    quote: "FundRise helped us raise funds for my mother's surgery within weeks. The support from strangers was overwhelming and restored my faith in humanity.",
+    quote: "FundRise нь хэдхэн долоо хоногийн дотор ээжийн минь мэс засалд зориулан санхүү цуглуулахад тусалсан. Танихгүй хүмүүсийн дэмжлэг нь гайхалтай байлаа, энэ нь хүн төрөлхтний итгэл найдварыг минь сэргээсэн.",
     author: "Jennifer Martinez",
-    role: "Raised $45,000 for medical expenses",
+    role: "Эмнэлгийн зардалд зориулан $45,000 цуглуулсан",
     rating: 5,
   },
   {
@@ -28,10 +28,10 @@ export function Testimonials() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Stories of hope and generosity
+            Надтай итгэл ба сайхан сэтгэлийн түүхүүд
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Real people, real impact. See how FundRise is making a difference.
+            Бодит хүмүүс, бодит нөлөө. FundRise хэрхэн өөрчлөлт авчирч байгааг үзээрэй.
           </p>
         </div>
 

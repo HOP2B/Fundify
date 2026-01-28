@@ -74,6 +74,7 @@ export function DiscoverFundraisers() {
   const [isOpen, setIsOpen] = useState(false);
   const [fundraisers, setFundraisers] = useState<Fundraiser[]>([]);
   const [loading, setLoading] = useState(true);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   const filters = [
     "Happening worldwide",
@@ -89,7 +90,7 @@ export function DiscoverFundraisers() {
 
   const fetchFundraisers = async () => {
     try {
-      const response = await fetch("/api/fundraisers?limit=5");
+      const response = await fetch("/api/fundraisers");
       const data = await response.json();
       setFundraisers(data.fundraisers || []);
     } catch (error) {
@@ -99,14 +100,29 @@ export function DiscoverFundraisers() {
     }
   };
 
-  const featuredFundraiser = fundraisers[0];
-  const gridFundraisers = fundraisers.slice(1);
+  const itemsPerPage = 5;
+  const totalPages = Math.ceil(fundraisers.length / itemsPerPage);
+  const displayedFundraisers = fundraisers.slice(currentIndex, currentIndex + itemsPerPage);
+  const featuredFundraiser = displayedFundraisers[0];
+  const gridFundraisers = displayedFundraisers.slice(1);
+
+  const handlePrev = () => {
+    if (currentIndex > 0) {
+      setCurrentIndex(currentIndex - itemsPerPage);
+    }
+  };
+
+  const handleNext = () => {
+    if (currentIndex + itemsPerPage < fundraisers.length) {
+      setCurrentIndex(currentIndex + itemsPerPage);
+    }
+  };
 
   return (
     <section className="py-16 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-8">
-          Discover fundraisers inspired by what you care about
+          Танд сонирхолтой, чухал гэж боддог зүйлсээс урам зориг авсан хандивын аянуудыг нээж олоорой
         </h2>
 
         <div className="flex items-center justify-between mb-8">
@@ -142,17 +158,21 @@ export function DiscoverFundraisers() {
           {/* Navigation Arrows */}
           <div className="flex items-center gap-2">
             <Button
+              onClick={handlePrev}
               variant="outline"
               size="icon"
               className="rounded-full w-10 h-10 bg-transparent"
+              disabled={totalPages <= 1}
             >
               <ArrowLeft className="w-4 h-4" />
               <span className="sr-only">Previous</span>
             </Button>
             <Button
+              onClick={handleNext}
               variant="outline"
               size="icon"
               className="rounded-full w-10 h-10 bg-transparent"
+              disabled={totalPages <= 1}
             >
               <ArrowRight className="w-4 h-4" />
               <span className="sr-only">Next</span>

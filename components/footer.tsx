@@ -39,7 +39,7 @@ export function Footer() {
               <span className="text-xl font-bold">FundRise</span>
             </Link>
             <p className="text-background/70 text-sm mb-4">
-              The trusted leader in online fundraising. Helping people help others since 2010.
+              The trusted leader in online fundraising. Helping people help others since 2026.
             </p>
             <div className="flex gap-4">
               <Link href="#" className="text-background/70 hover:text-background transition-colors">

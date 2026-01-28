@@ -24,7 +24,7 @@ export function Header() {
               className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-foreground hover:text-muted-foreground transition-colors"
             >
               <Search className="w-4 h-4" />
-              Search
+              Хайх
             </Link>
             <div
               className="relative"
@@ -32,7 +32,7 @@ export function Header() {
               onMouseLeave={() => setDonateDropdownOpen(false)}
             >
               <button className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-foreground hover:text-muted-foreground transition-colors">
-                Donate
+                Хандив өгөх
                 <ChevronDown className="w-4 h-4" />
               </button>
               
@@ -85,7 +85,7 @@ export function Header() {
               className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-foreground hover:text-muted-foreground transition-colors"
             >
 
-              Fundraisers
+              Хандив цуглуулагчид
             </Link>
           </nav>
 
@@ -110,7 +110,7 @@ export function Header() {
           <nav className="flex-1 hidden md:flex items-center gap-1 justify-end">
             
             <button className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-foreground hover:text-muted-foreground transition-colors">
-              About
+              Тухай
               <ChevronDown className="w-4 h-4" />
             </button>
             
@@ -119,7 +119,7 @@ export function Header() {
                 href="/auth/sign-in"
                 className="px-3 py-2 text-sm font-medium text-foreground hover:text-muted-foreground transition-colors"
               >
-                Sign in
+                Нэвтрэх
               </Link>
             </SignedOut>
             <SignedIn>
@@ -128,7 +128,7 @@ export function Header() {
                 className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-foreground hover:text-muted-foreground transition-colors"
               >
                 <User className="w-4 h-4" />
-                Profile
+                Профайл
               </Link>
               <UserButton />
             </SignedIn>
@@ -205,7 +205,7 @@ export function Header() {
                 <ChevronDown className="w-4 h-4" />
               </button>
               <button className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-left">
-                About
+                Тухай
                 <ChevronDown className="w-4 h-4" />
               </button>
               <SignedOut>
