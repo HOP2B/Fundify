@@ -11,6 +11,7 @@ export function Header() {
   const { language, setLanguage, t } = useLanguage();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [donateDropdownOpen, setDonateDropdownOpen] = useState(false);
+  const [mobileDonateOpen, setMobileDonateOpen] = useState(false);
 
   return (
     <header className="sticky top-0 z-50 bg-card">
@@ -34,20 +35,58 @@ export function Header() {
                 Donate
                 <ChevronDown className="w-4 h-4" />
               </button>
+              
               {donateDropdownOpen && (
-                <div className="absolute top-full left-0 mt-1 w-48 bg-card border border-border rounded-lg shadow-xl z-50 animate-in fade-in-0 zoom-in-95">
-                  <div className="p-1">
+                <div className="absolute top-full left-0 mt-2 w-80 bg-card border border-border rounded-xl shadow-2xl z-50 transition-all duration-300 ease-out opacity-100 scale-100">
+                  <div className="p-4 space-y-4">
                     <Link
-                      href="/categories"
-                      className="flex items-center gap-2 px-3 py-2 text-sm text-foreground hover:bg-accent hover:text-accent-foreground rounded-md transition-all duration-200"
+                      href="/fundraisers"
+                      className="flex items-center gap-3 px-4 py-3 text-sm text-foreground hover:shadow-lg rounded-lg transition-all duration-200 border border-transparent hover:border-border"
                     >
-                      <Heart className="w-4 h-4 text-primary" />
-                      Browse Categories
+                      <Search className="w-5 h-5 text-primary" />
+                      <span className="font-medium">Discover fundraisers to support</span>
                     </Link>
+                    <div className="grid grid-cols-2 gap-3">
+                      <Link
+                        href="/categories"
+                        className="flex flex-col items-center gap-2 p-4 text-center text-sm text-foreground hover:shadow-lg rounded-none transition-all duration-200 border border-transparent hover:border-border group"
+                      >
+                        <Heart className="w-6 h-6 text-primary group-hover:scale-110 transition-transform" />
+                        <span className="font-medium leading-tight">Categories<br /></span>
+                      </Link>
+                      <Link
+                        href="/categories?type=crisis"
+                        className="flex flex-col items-center gap-2 p-4 text-center text-sm text-foreground hover:shadow-lg rounded-none transition-all duration-200 border border-transparent hover:border-border group"
+                      >
+                        <Heart className="w-6 h-6 text-primary group-hover:scale-110 transition-transform" />
+                        <span className="font-medium leading-tight">Crisis relief<br /></span>
+                      </Link>
+                      <Link
+                        href="/social-impact-funds"
+                        className="flex flex-col items-center gap-2 p-4 text-center text-sm text-foreground hover:shadow-lg rounded-none transition-all duration-200 border border-transparent hover:border-border group"
+                      >
+                        <Heart className="w-6 h-6 text-primary group-hover:scale-110 transition-transform" />
+                        <span className="font-medium leading-tight">Social Impact Funds<br /></span>
+                      </Link>
+                      <Link
+                        href="/supporter-space"
+                        className="flex flex-col items-center gap-2 p-4 text-center text-sm text-foreground hover:shadow-lg rounded-none transition-all duration-200 border border-transparent hover:border-border group"
+                      >
+                        <User className="w-6 h-6 text-primary group-hover:scale-110 transition-transform" />
+                        <span className="font-medium leading-tight">Supporter Space<br /></span>
+                      </Link>
+                    </div>
                   </div>
                 </div>
               )}
             </div>
+              <Link
+              href="/fundraisers"
+              className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-foreground hover:text-muted-foreground transition-colors"
+            >
+
+              Fundraisers
+            </Link>
           </nav>
 
           {/* Logo */}
@@ -69,14 +108,12 @@ export function Header() {
 
           {/* Right Navigation */}
           <nav className="flex-1 hidden md:flex items-center gap-1 justify-end">
+            
             <button className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-foreground hover:text-muted-foreground transition-colors">
               About
               <ChevronDown className="w-4 h-4" />
             </button>
-            <button className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-foreground hover:text-muted-foreground transition-colors">
-              Fundraise
-              <ChevronDown className="w-4 h-4" />
-            </button>
+            
             <SignedOut>
               <Link
                 href="/auth/sign-in"
@@ -117,13 +154,52 @@ export function Header() {
               <Link href="/search" className="px-3 py-2 text-sm font-medium">
                 Search
               </Link>
-              <Link
-                href="/categories"
+              <button
+                onClick={() => setMobileDonateOpen(!mobileDonateOpen)}
                 className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-left"
               >
                 Donate
-                <ChevronDown className="w-4 h-4" />
-              </Link>
+                <ChevronDown className={`w-4 h-4 transition-transform ${mobileDonateOpen ? 'rotate-180' : ''}`} />
+              </button>
+              {mobileDonateOpen && (
+                <div className="ml-6 mt-2 space-y-2">
+                  <Link
+                    href="/fundraisers"
+                    className="flex items-center gap-3 px-4 py-3 text-sm text-foreground hover:shadow-md rounded-lg transition-all duration-200 border border-transparent hover:border-border"
+                  >
+                    <Search className="w-5 h-5 text-primary" />
+                    <span className="font-medium">Discover fundraisers to support</span>
+                  </Link>
+                  <Link
+                    href="/categories"
+                    className="flex items-center gap-3 px-4 py-3 text-sm text-foreground hover:shadow-md rounded-lg transition-all duration-200 border border-transparent hover:border-border group"
+                  >
+                    <Heart className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
+                    <span className="font-medium">Categories – Browse fundraisers by category</span>
+                  </Link>
+                  <Link
+                    href="/categories?type=crisis"
+                    className="flex items-center gap-3 px-4 py-3 text-sm text-foreground hover:shadow-md rounded-lg transition-all duration-200 border border-transparent hover:border-border group"
+                  >
+                    <Heart className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
+                    <span className="font-medium">Crisis relief – Donate to verified relief</span>
+                  </Link>
+                  <Link
+                    href="/social-impact-funds"
+                    className="flex items-center gap-3 px-4 py-3 text-sm text-foreground hover:shadow-md rounded-lg transition-all duration-200 border border-transparent hover:border-border group"
+                  >
+                    <Heart className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
+                    <span className="font-medium">Social Impact Funds – Direct support for urgent needs</span>
+                  </Link>
+                  <Link
+                    href="/supporter-space"
+                    className="flex items-center gap-3 px-4 py-3 text-sm text-foreground hover:shadow-md rounded-lg transition-all duration-200 border border-transparent hover:border-border group"
+                  >
+                    <User className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
+                    <span className="font-medium">Supporter Space – Inspiration, FAQs, and where to give</span>
+                  </Link>
+                </div>
+              )}
               <button className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-left">
                 Fundraise
                 <ChevronDown className="w-4 h-4" />

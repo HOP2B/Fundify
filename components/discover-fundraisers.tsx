@@ -32,7 +32,7 @@ function CampaignCard({
           className={`relative overflow-hidden rounded-lg ${featured ? "h-full min-h-[420px]" : "aspect-[4/3]"}`}
         >
           <Image
-            src={fundraiser.image || "/placeholder.svg"}
+            src={fundraiser.image ? fundraiser.image : "/placeholder.svg"}
             alt={fundraiser.title}
             fill
             className="object-cover transition-transform duration-300 group-hover:scale-105"

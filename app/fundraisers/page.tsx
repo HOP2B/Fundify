@@ -104,15 +104,23 @@ export default function FundraisersPage() {
                 className="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow"
               >
                 <div className="aspect-video bg-gray-200 relative">
-                  <img
-                    src={fundraiser.image}
-                    alt={fundraiser.title}
-                    className="w-full h-full object-cover"
-                    onError={(e) => {
-                      e.currentTarget.src =
-                        "/placeholder.svg?height=300&width=400";
-                    }}
-                  />
+                  {fundraiser.image ? (
+                    <img
+                      src={fundraiser.image}
+                      alt={fundraiser.title}
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        e.currentTarget.src =
+                          "/placeholder.svg?height=300&width=400";
+                      }}
+                    />
+                  ) : (
+                    <img
+                      src="/placeholder.svg?height=300&width=400"
+                      alt={fundraiser.title}
+                      className="w-full h-full object-cover"
+                    />
+                  )}
                 </div>
                 <div className="p-6">
                   <div className="flex justify-between items-start mb-2">
