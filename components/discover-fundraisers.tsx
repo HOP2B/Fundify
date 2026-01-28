@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { ChevronDown, ArrowLeft, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -25,44 +26,46 @@ function CampaignCard({
 }) {
   const progress = Math.min((fundraiser.raised / fundraiser.goal) * 100, 100);
   return (
-    <div className={`group cursor-pointer ${featured ? "row-span-2" : ""}`}>
-      <div
-        className={`relative overflow-hidden rounded-lg ${featured ? "h-full min-h-[420px]" : "aspect-[4/3]"}`}
-      >
-        <Image
-          src={fundraiser.image || "/placeholder.svg"}
-          alt={fundraiser.title}
-          fill
-          className="object-cover transition-transform duration-300 group-hover:scale-105"
-        />
-        <div className="absolute bottom-3 left-3">
-          <span className="bg-foreground/80 text-background text-xs font-medium px-2.5 py-1 rounded capitalize">
-            {fundraiser.category}
-          </span>
-        </div>
-      </div>
-      <div className="mt-3">
-        <h3
-          className={`font-semibold text-foreground leading-snug line-clamp-2 group-hover:underline ${featured ? "text-lg" : "text-sm"}`}
+    <Link href={`/fundraisers/${fundraiser._id}`}>
+      <div className={`group cursor-pointer ${featured ? "row-span-2" : ""}`}>
+        <div
+          className={`relative overflow-hidden rounded-lg ${featured ? "h-full min-h-[420px]" : "aspect-[4/3]"}`}
         >
-          {fundraiser.title}
-        </h3>
-        <div className="mt-3">
-          <div className="w-full bg-muted rounded-full h-1.5 overflow-hidden">
-            <div
-              className="bg-primary h-full rounded-full transition-all duration-500"
-              style={{ width: `${progress}%` }}
-            />
+          <Image
+            src={fundraiser.image ? fundraiser.image : "/placeholder.svg"}
+            alt={fundraiser.title}
+            fill
+            className="object-cover transition-transform duration-300 group-hover:scale-105"
+          />
+          <div className="absolute bottom-3 left-3">
+            <span className="bg-foreground/80 text-background text-xs font-medium px-2.5 py-1 rounded capitalize">
+              {fundraiser.category}
+            </span>
           </div>
-          <p className="text-sm text-muted-foreground mt-2">
-            <span className="font-semibold text-foreground">
-              ${fundraiser.raised.toLocaleString()}
-            </span>{" "}
-            raised of ${fundraiser.goal.toLocaleString()}
-          </p>
+        </div>
+        <div className="mt-3">
+          <h3
+            className={`font-semibold text-foreground leading-snug line-clamp-2 group-hover:underline ${featured ? "text-lg" : "text-sm"}`}
+          >
+            {fundraiser.title}
+          </h3>
+          <div className="mt-3">
+            <div className="w-full bg-muted rounded-full h-1.5 overflow-hidden">
+              <div
+                className="bg-primary h-full rounded-full transition-all duration-500"
+                style={{ width: `${progress}%` }}
+              />
+            </div>
+            <p className="text-sm text-muted-foreground mt-2">
+              <span className="font-semibold text-foreground">
+                ${fundraiser.raised.toLocaleString()}
+              </span>{" "}
+              raised of ${fundraiser.goal.toLocaleString()}
+            </p>
+          </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
 
