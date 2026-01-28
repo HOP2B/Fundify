@@ -21,6 +21,8 @@ import {
   Plane,
   HandHeart,
   Star,
+  Edit,
+  Eye,
 } from "lucide-react";
 
 interface Fundraiser {
@@ -194,9 +196,18 @@ export default function MyFundraisersPage() {
                         </div>
                         <div className="flex gap-2">
                           <Button variant="outline" className="flex-1">
+                            <Edit className="w-4 h-4 mr-2" />
                             Edit
                           </Button>
-                          <Button className="flex-1">View Details</Button>
+                          <Link
+                            href={`/fundraisers/${fundraiser._id}`}
+                            className="flex-1"
+                          >
+                            <Button className="w-full">
+                              <Eye className="w-4 h-4 mr-2" />
+                              View Details
+                            </Button>
+                          </Link>
                         </div>
                       </div>
                     </div>
