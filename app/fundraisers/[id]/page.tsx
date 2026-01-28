@@ -60,7 +60,7 @@ export default function FundraiserDetailPage() {
 
     setIsDonating(true);
     try {
-      const response = await fetch(`/api/fundraisers/${params.id}/donate`, {
+      const response = await fetch(`/api/fundraisers/${params.id}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
