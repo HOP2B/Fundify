@@ -67,7 +67,7 @@ export default function SearchPage() {
               className="w-full sm:w-auto sm:max-w-md px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             <Button asChild className="w-full sm:w-auto">
-              <Link href="/donate">Start a GoFundMe</Link>
+              <Link href="/donate" className="font-black">Start a Fundify</Link>
             </Button>
           </div>
         </div>

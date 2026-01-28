@@ -97,10 +97,10 @@ export function Hero() {
           </h1>
           <Button
             size="lg"
-            className="rounded-full px-10 py-6 text-base font-medium h-auto"
+            className="rounded-full px-10 py-6 text-base font-black h-auto"
             onClick={() => router.push("/donate")}
           >
-            Start a GoFundMe
+            Start a Fundify
           </Button>
         </div>
       </div>
