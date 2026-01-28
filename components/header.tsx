@@ -92,7 +92,7 @@ export function Header() {
           {/* Logo */}
           <Link href="/" className="flex-shrink-0 flex items-center gap-1">
             <span className="text-xl font-bold text-primary tracking-tight">
-              gofundme
+              Fundify
             </span>
             <svg viewBox="0 0 24 24" className="w-5 h-5 text-primary -mt-2">
               <circle cx="12" cy="8" r="3" fill="currentColor" />
@@ -223,7 +223,7 @@ export function Header() {
               </SignedIn>
               <div className="px-3 pt-2">
                 <Button asChild className="w-full rounded-full">
-                  <Link href="/donate">Start a GoFundMe</Link>
+                  <Link href="/donate" className="font-black">Start a Fundify</Link>
                 </Button>
               </div>
             </nav>

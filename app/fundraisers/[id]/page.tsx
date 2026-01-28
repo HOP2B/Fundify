@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { SignedIn, SignedOut, RedirectToSignIn } from "@clerk/nextjs";
 import { ArrowLeft, Heart, Share2 } from "lucide-react";
 import Link from "next/link";
+import { useUser } from "@clerk/nextjs";
 
 interface Fundraiser {
   _id: string;
@@ -24,11 +25,9 @@ interface Fundraiser {
 export default function FundraiserDetailPage() {
   const params = useParams();
   const router = useRouter();
+  const { user } = useUser();
   const [fundraiser, setFundraiser] = useState<Fundraiser | null>(null);
   const [loading, setLoading] = useState(true);
-  const [donationAmount, setDonationAmount] = useState("");
-  const [tipPercentage, setTipPercentage] = useState(0);
-  const [isDonating, setIsDonating] = useState(false);
 
   useEffect(() => {
     if (params.id) {
@@ -53,48 +52,8 @@ export default function FundraiserDetailPage() {
     }
   };
 
-  const handleDonate = async () => {
-    if (!donationAmount || parseFloat(donationAmount) <= 0) {
-      alert("Please enter a valid donation amount");
-      return;
-    }
-
-    const baseAmount = parseFloat(donationAmount);
-    const tipAmount = baseAmount * (tipPercentage / 100);
-    const totalAmount = baseAmount + tipAmount;
-
-    setIsDonating(true);
-    try {
-      const response = await fetch(`/api/fundraisers/${params.id}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          amount: baseAmount,
-          tipPercentage: tipPercentage,
-          tipAmount: tipAmount,
-          totalAmount: totalAmount,
-        }),
-      });
-
-      if (response.ok) {
-        alert(
-          `Thank you for your donation!${tipPercentage > 0 ? ` (Including ${tipPercentage}% tip)` : ""}`,
-        );
-        setDonationAmount("");
-        setTipPercentage(0);
-        // Refresh fundraiser data
-        fetchFundraiser();
-      } else {
-        alert("Failed to process donation");
-      }
-    } catch (error) {
-      console.error("Error processing donation:", error);
-      alert("An error occurred while processing your donation");
-    } finally {
-      setIsDonating(false);
-    }
+  const handleDonateClick = () => {
+    router.push(`/donate/${params.id}`);
   };
 
   if (loading) {
@@ -184,64 +143,17 @@ export default function FundraiserDetailPage() {
                       </div>
                     </div>
 
-                    <div className="space-y-4">
-                      <div>
-                        <label className="block text-sm font-medium text-foreground mb-2">
-                          Donation Amount ($)
-                        </label>
-                        <input
-                          type="number"
-                          value={donationAmount}
-                          onChange={(e) => setDonationAmount(e.target.value)}
-                          placeholder="Enter amount"
-                          className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-                          min="1"
-                          step="0.01"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-sm font-medium text-foreground mb-3">
-                          Add a tip for Fundify
-                        </label>
-                        <div className="grid grid-cols-4 gap-2">
-                          {[0, 5, 10, 15].map((percentage) => (
-                            <button
-                              key={percentage}
-                              type="button"
-                              onClick={() => setTipPercentage(percentage)}
-                              className={`px-3 py-2 text-sm font-medium rounded-md border transition-colors ${
-                                tipPercentage === percentage
-                                  ? "bg-primary text-primary-foreground border-primary"
-                                  : "bg-background text-foreground border-border hover:border-primary/50"
-                              }`}
-                            >
-                              {percentage}%
-                            </button>
-                          ))}
-                        </div>
-                        {tipPercentage > 0 && donationAmount && (
-                          <div className="mt-2 text-sm text-muted-foreground">
-                            Tip: $
-                            {(
-                              parseFloat(donationAmount) *
-                              (tipPercentage / 100)
-                            ).toFixed(2)}
-                          </div>
-                        )}
-                      </div>
-
-                      <Button
-                        onClick={handleDonate}
-                        disabled={isDonating}
-                        className="w-full"
-                        size="lg"
-                      >
-                        {isDonating
-                          ? "Processing..."
-                          : `Donate ${donationAmount ? `$${(parseFloat(donationAmount) * (1 + tipPercentage / 100)).toFixed(2)}` : "Now"}`}
-                      </Button>
-                    </div>
+                    <Button
+                      onClick={handleDonateClick}
+                      disabled={fundraiser.status !== "active"}
+                      className="w-full"
+                      size="lg"
+                    >
+                      <Heart className="w-5 h-5 mr-2" />
+                      {fundraiser.status === "active"
+                        ? "Donate Now"
+                        : fundraiser.status}
+                    </Button>
                   </div>
                 </div>
               </div>
