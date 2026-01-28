@@ -49,7 +49,7 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
           await fundraiser.save();
         }
       } else if (requestDoc.type === 'wallet_topup') {
-        const user = await User.findById(requestDoc.userId);
+        const user = await User.findOne({ clerkId: requestDoc.userId });
         if (user) {
           user.walletBalance += requestDoc.amount;
           await user.save();
@@ -68,6 +68,15 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
       requestDoc.rejectedAt = now;
       requestDoc.rejectedBy = adminEmail;
       requestDoc.rejectionReason = rejectionReason;
+
+      // Handle rejected fundraisers
+      if (requestDoc.type === 'fundraiser') {
+        const fundraiser = await Fundraiser.findById(requestDoc.fundraiserId);
+        if (fundraiser) {
+          fundraiser.status = 'rejected';
+          await fundraiser.save();
+        }
+      }
     } else {
       return NextResponse.json(
         { success: false, message: 'Invalid action' },

@@ -7,14 +7,28 @@ import User from '@/lib/models/User';
 export async function GET() {
   try {
     await connectToDatabase();
-    
+
     const requests = await ApprovalRequest.find()
-      .populate('userId', 'email firstName lastName')
       .sort({ createdAt: -1 });
+
+    // Manually populate user details for each request
+    const requestsWithUsers = await Promise.all(
+      requests.map(async (request) => {
+        const user = await User.findOne({ clerkId: request.userId });
+        return {
+          ...request.toObject(),
+          user: user ? {
+            email: user.email,
+            firstName: user.firstName,
+            lastName: user.lastName
+          } : null
+        };
+      })
+    );
 
     return NextResponse.json({
       success: true,
-      requests
+      requests: requestsWithUsers
     });
 
   } catch (error) {

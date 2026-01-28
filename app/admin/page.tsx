@@ -3,20 +3,27 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { 
-  AlertCircle, 
-  CheckCircle, 
-  Clock, 
-  Eye, 
-  EyeOff, 
-  LogIn, 
-  Plus, 
-  RefreshCw, 
-  Search, 
-  Shield, 
-  UserPlus, 
-  XCircle 
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import {
+  AlertCircle,
+  CheckCircle,
+  Clock,
+  Eye,
+  EyeOff,
+  LogIn,
+  Plus,
+  RefreshCw,
+  Search,
+  Shield,
+  UserPlus,
+  XCircle,
 } from "lucide-react";
 
 type AdminData = {
@@ -27,10 +34,10 @@ type AdminData = {
 
 type RequestType = {
   _id: string;
-  type: 'fundraiser' | 'wallet_topup';
+  type: "fundraiser" | "wallet_topup";
   userId: string;
   userEmail: string;
-  status: 'pending' | 'approved' | 'rejected';
+  status: "pending" | "approved" | "rejected";
   fundraiserId?: string;
   amount?: number;
   reason: string;
@@ -52,15 +59,17 @@ export default function AdminPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-  
+
   // Login form state
   const [email, setEmail] = useState("");
   const [adminCode, setAdminCode] = useState("");
-  
+
   // Admin data
   const [adminData, setAdminData] = useState<AdminData | null>(null);
   const [requests, setRequests] = useState<RequestType[]>([]);
-  const [selectedRequest, setSelectedRequest] = useState<RequestType | null>(null);
+  const [selectedRequest, setSelectedRequest] = useState<RequestType | null>(
+    null,
+  );
   const [showRejectionModal, setShowRejectionModal] = useState(false);
   const [rejectionReason, setRejectionReason] = useState("");
   const [actionLoading, setActionLoading] = useState(false);
@@ -111,7 +120,10 @@ export default function AdminPage() {
   };
 
   // Process request
-  const processRequest = async (requestId: string, action: 'approve' | 'reject') => {
+  const processRequest = async (
+    requestId: string,
+    action: "approve" | "reject",
+  ) => {
     setActionLoading(true);
     setError("");
 
@@ -122,7 +134,7 @@ export default function AdminPage() {
         body: JSON.stringify({
           action,
           adminEmail: adminData?.email,
-          rejectionReason: action === 'reject' ? rejectionReason : undefined
+          rejectionReason: action === "reject" ? rejectionReason : undefined,
         }),
       });
 
@@ -156,20 +168,28 @@ export default function AdminPage() {
   // Get status badge variant
   const getStatusVariant = (status: string) => {
     switch (status) {
-      case 'pending': return 'secondary';
-      case 'approved': return 'default';
-      case 'rejected': return 'destructive';
-      default: return 'secondary';
+      case "pending":
+        return "secondary";
+      case "approved":
+        return "default";
+      case "rejected":
+        return "destructive";
+      default:
+        return "secondary";
     }
   };
 
   // Get status icon
   const getStatusIcon = (status: string) => {
     switch (status) {
-      case 'pending': return <Clock className="w-4 h-4" />;
-      case 'approved': return <CheckCircle className="w-4 h-4" />;
-      case 'rejected': return <XCircle className="w-4 h-4" />;
-      default: return <Clock className="w-4 h-4" />;
+      case "pending":
+        return <Clock className="w-4 h-4" />;
+      case "approved":
+        return <CheckCircle className="w-4 h-4" />;
+      case "rejected":
+        return <XCircle className="w-4 h-4" />;
+      default:
+        return <Clock className="w-4 h-4" />;
     }
   };
 
@@ -181,7 +201,9 @@ export default function AdminPage() {
             <div className="flex items-center justify-center mb-4">
               <Shield className="w-12 h-12 text-primary" />
             </div>
-            <CardTitle className="text-2xl font-bold text-center">Admin Login</CardTitle>
+            <CardTitle className="text-2xl font-bold text-center">
+              Admin Login
+            </CardTitle>
             <CardDescription className="text-center">
               Access the admin dashboard to manage requests and approvals
             </CardDescription>
@@ -245,15 +267,18 @@ export default function AdminPage() {
                 Welcome, {adminData?.email}
               </p>
             </div>
-              <div className="flex items-center gap-4">
-                <span className="px-3 py-1 bg-secondary text-secondary-foreground rounded-full text-sm font-medium">
-                  <Shield className="w-4 h-4 inline mr-2" />
-                  Admin
-                </span>
-                <Button variant="outline" onClick={() => setIsAuthenticated(false)}>
-                  Logout
-                </Button>
-              </div>
+            <div className="flex items-center gap-4">
+              <span className="px-3 py-1 bg-secondary text-secondary-foreground rounded-full text-sm font-medium">
+                <Shield className="w-4 h-4 inline mr-2" />
+                Admin
+              </span>
+              <Button
+                variant="outline"
+                onClick={() => setIsAuthenticated(false)}
+              >
+                Logout
+              </Button>
+            </div>
           </div>
         </div>
       </header>
@@ -279,7 +304,9 @@ export default function AdminPage() {
                   </div>
                   <div className="flex items-center gap-2">
                     <Button variant="outline" onClick={fetchRequests}>
-                      <RefreshCw className={`w-4 h-4 mr-2 ${actionLoading ? 'animate-spin' : ''}`} />
+                      <RefreshCw
+                        className={`w-4 h-4 mr-2 ${actionLoading ? "animate-spin" : ""}`}
+                      />
                       Refresh
                     </Button>
                   </div>
@@ -290,56 +317,90 @@ export default function AdminPage() {
                   <table className="w-full border-collapse border border-border">
                     <thead>
                       <tr className="bg-muted">
-                        <th className="border border-border px-4 py-2 text-left">Type</th>
-                        <th className="border border-border px-4 py-2 text-left">User</th>
-                        <th className="border border-border px-4 py-2 text-left">Amount</th>
-                        <th className="border border-border px-4 py-2 text-left">Reason</th>
-                        <th className="border border-border px-4 py-2 text-left">Status</th>
-                        <th className="border border-border px-4 py-2 text-left">Date</th>
-                        <th className="border border-border px-4 py-2 text-left">Actions</th>
+                        <th className="border border-border px-4 py-2 text-left">
+                          Type
+                        </th>
+                        <th className="border border-border px-4 py-2 text-left">
+                          User
+                        </th>
+                        <th className="border border-border px-4 py-2 text-left">
+                          Amount
+                        </th>
+                        <th className="border border-border px-4 py-2 text-left">
+                          Reason
+                        </th>
+                        <th className="border border-border px-4 py-2 text-left">
+                          Status
+                        </th>
+                        <th className="border border-border px-4 py-2 text-left">
+                          Date
+                        </th>
+                        <th className="border border-border px-4 py-2 text-left">
+                          Actions
+                        </th>
                       </tr>
                     </thead>
                     <tbody>
                       {requests.map((request) => (
-                        <tr key={request._id} className="border border-border hover:bg-muted/50">
+                        <tr
+                          key={request._id}
+                          className="border border-border hover:bg-muted/50"
+                        >
                           <td className="border border-border px-4 py-2">
                             <span className="px-2 py-1 bg-secondary text-secondary-foreground rounded text-sm">
-                              {request.type === 'fundraiser' ? 'Fundraiser' : 'Wallet Top-up'}
+                              {request.type === "fundraiser"
+                                ? "Fundraiser"
+                                : "Wallet Top-up"}
                             </span>
                           </td>
                           <td className="border border-border px-4 py-2">
                             <div>
-                              <div className="font-medium">{request.user?.email || request.userEmail}</div>
+                              <div className="font-medium">
+                                {request.user?.email || request.userEmail}
+                              </div>
                               <div className="text-sm text-muted-foreground">
-                                {request.user?.firstName} {request.user?.lastName}
+                                {request.user?.firstName}{" "}
+                                {request.user?.lastName}
                               </div>
                             </div>
                           </td>
                           <td className="border border-border px-4 py-2">
-                            {request.type === 'wallet_topup' && request.amount 
-                              ? `$${request.amount}` 
-                              : '-'}
+                            {request.type === "wallet_topup" && request.amount
+                              ? `$${request.amount}`
+                              : "-"}
                           </td>
-                          <td className="border border-border px-4 py-2 max-w-xs truncate" title={request.reason}>
+                          <td
+                            className="border border-border px-4 py-2 max-w-xs truncate"
+                            title={request.reason}
+                          >
                             {request.reason}
                           </td>
                           <td className="border border-border px-4 py-2">
-                            <span className={`px-2 py-1 rounded text-sm flex items-center gap-1 ${
-                              request.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
-                              request.status === 'approved' ? 'bg-green-100 text-green-800' :
-                              'bg-red-100 text-red-800'
-                            }`}>
+                            <span
+                              className={`px-2 py-1 rounded text-sm flex items-center gap-1 ${
+                                request.status === "pending"
+                                  ? "bg-yellow-100 text-yellow-800"
+                                  : request.status === "approved"
+                                    ? "bg-green-100 text-green-800"
+                                    : "bg-red-100 text-red-800"
+                              }`}
+                            >
                               {getStatusIcon(request.status)}
-                              {request.status.charAt(0).toUpperCase() + request.status.slice(1)}
+                              {request.status.charAt(0).toUpperCase() +
+                                request.status.slice(1)}
                             </span>
                           </td>
-                          <td className="border border-border px-4 py-2">{formatDate(request.createdAt)}</td>
+                          <td className="border border-border px-4 py-2">
+                            {formatDate(request.createdAt)}
+                          </td>
                           <td className="border border-border px-4 py-2">
                             <div className="flex gap-2">
-                              {request.status === 'pending' && (
+                              {request.status === "pending" && (
                                 <>
                                   <button
-                                    onClick={() => processRequest(request._id, 'approve')}
+                                    onClick={() =>
+                                      processRequest(request._id, "approve")
+                                    }
                                     disabled={actionLoading}
                                     className="px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700 disabled:opacity-50"
                                   >
@@ -356,13 +417,13 @@ export default function AdminPage() {
                                   </button>
                                 </>
                               )}
-                              {request.status === 'approved' && (
+                              {request.status === "approved" && (
                                 <span className="px-2 py-1 bg-green-100 text-green-800 rounded text-sm">
                                   <CheckCircle className="w-4 h-4 inline mr-1" />
                                   Approved
                                 </span>
                               )}
-                              {request.status === 'rejected' && (
+                              {request.status === "rejected" && (
                                 <span className="px-2 py-1 bg-red-100 text-red-800 rounded text-sm">
                                   <XCircle className="w-4 h-4 inline mr-1" />
                                   Rejected
@@ -388,49 +449,73 @@ export default function AdminPage() {
             <Card>
               <CardHeader>
                 <CardTitle>Pending Requests</CardTitle>
-                <CardDescription>
-                  Requests waiting for approval
-                </CardDescription>
+                <CardDescription>Requests waiting for approval</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="overflow-x-auto">
                   <table className="w-full border-collapse border border-border">
                     <thead>
                       <tr className="bg-muted">
-                        <th className="border border-border px-4 py-2 text-left">Type</th>
-                        <th className="border border-border px-4 py-2 text-left">User</th>
-                        <th className="border border-border px-4 py-2 text-left">Amount</th>
-                        <th className="border border-border px-4 py-2 text-left">Reason</th>
-                        <th className="border border-border px-4 py-2 text-left">Date</th>
-                        <th className="border border-border px-4 py-2 text-left">Actions</th>
+                        <th className="border border-border px-4 py-2 text-left">
+                          Type
+                        </th>
+                        <th className="border border-border px-4 py-2 text-left">
+                          User
+                        </th>
+                        <th className="border border-border px-4 py-2 text-left">
+                          Amount
+                        </th>
+                        <th className="border border-border px-4 py-2 text-left">
+                          Reason
+                        </th>
+                        <th className="border border-border px-4 py-2 text-left">
+                          Date
+                        </th>
+                        <th className="border border-border px-4 py-2 text-left">
+                          Actions
+                        </th>
                       </tr>
                     </thead>
                     <tbody>
                       {requests
-                        .filter(r => r.status === 'pending')
+                        .filter((r) => r.status === "pending")
                         .map((request) => (
-                          <tr key={request._id} className="border border-border hover:bg-muted/50">
+                          <tr
+                            key={request._id}
+                            className="border border-border hover:bg-muted/50"
+                          >
                             <td className="border border-border px-4 py-2">
                               <span className="px-2 py-1 bg-secondary text-secondary-foreground rounded text-sm">
-                                {request.type === 'fundraiser' ? 'Fundraiser' : 'Wallet Top-up'}
+                                {request.type === "fundraiser"
+                                  ? "Fundraiser"
+                                  : "Wallet Top-up"}
                               </span>
                             </td>
                             <td className="border border-border px-4 py-2">
-                              <div className="font-medium">{request.user?.email || request.userEmail}</div>
+                              <div className="font-medium">
+                                {request.user?.email || request.userEmail}
+                              </div>
                             </td>
                             <td className="border border-border px-4 py-2">
-                              {request.type === 'wallet_topup' && request.amount 
-                                ? `$${request.amount}` 
-                                : '-'}
+                              {request.type === "wallet_topup" && request.amount
+                                ? `$${request.amount}`
+                                : "-"}
                             </td>
-                            <td className="border border-border px-4 py-2 max-w-xs truncate" title={request.reason}>
+                            <td
+                              className="border border-border px-4 py-2 max-w-xs truncate"
+                              title={request.reason}
+                            >
                               {request.reason}
                             </td>
-                            <td className="border border-border px-4 py-2">{formatDate(request.createdAt)}</td>
+                            <td className="border border-border px-4 py-2">
+                              {formatDate(request.createdAt)}
+                            </td>
                             <td className="border border-border px-4 py-2">
                               <div className="flex gap-2">
                                 <button
-                                  onClick={() => processRequest(request._id, 'approve')}
+                                  onClick={() =>
+                                    processRequest(request._id, "approve")
+                                  }
                                   disabled={actionLoading}
                                   className="px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700 disabled:opacity-50"
                                 >
@@ -451,7 +536,8 @@ export default function AdminPage() {
                         ))}
                     </tbody>
                   </table>
-                  {requests.filter(r => r.status === 'pending').length === 0 && (
+                  {requests.filter((r) => r.status === "pending").length ===
+                    0 && (
                     <div className="text-center py-8 text-muted-foreground">
                       No pending requests
                     </div>
@@ -465,55 +551,78 @@ export default function AdminPage() {
             <Card>
               <CardHeader>
                 <CardTitle>Approval History</CardTitle>
-                <CardDescription>
-                  Previously processed requests
-                </CardDescription>
+                <CardDescription>Previously processed requests</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="overflow-x-auto">
                   <table className="w-full border-collapse border border-border">
                     <thead>
                       <tr className="bg-muted">
-                        <th className="border border-border px-4 py-2 text-left">Type</th>
-                        <th className="border border-border px-4 py-2 text-left">User</th>
-                        <th className="border border-border px-4 py-2 text-left">Amount</th>
-                        <th className="border border-border px-4 py-2 text-left">Status</th>
-                        <th className="border border-border px-4 py-2 text-left">Processed By</th>
-                        <th className="border border-border px-4 py-2 text-left">Processed At</th>
+                        <th className="border border-border px-4 py-2 text-left">
+                          Type
+                        </th>
+                        <th className="border border-border px-4 py-2 text-left">
+                          User
+                        </th>
+                        <th className="border border-border px-4 py-2 text-left">
+                          Amount
+                        </th>
+                        <th className="border border-border px-4 py-2 text-left">
+                          Status
+                        </th>
+                        <th className="border border-border px-4 py-2 text-left">
+                          Processed By
+                        </th>
+                        <th className="border border-border px-4 py-2 text-left">
+                          Processed At
+                        </th>
                       </tr>
                     </thead>
                     <tbody>
                       {requests
-                        .filter(r => r.status !== 'pending')
+                        .filter((r) => r.status !== "pending")
                         .map((request) => (
-                          <tr key={request._id} className="border border-border hover:bg-muted/50">
+                          <tr
+                            key={request._id}
+                            className="border border-border hover:bg-muted/50"
+                          >
                             <td className="border border-border px-4 py-2">
                               <span className="px-2 py-1 bg-secondary text-secondary-foreground rounded text-sm">
-                                {request.type === 'fundraiser' ? 'Fundraiser' : 'Wallet Top-up'}
+                                {request.type === "fundraiser"
+                                  ? "Fundraiser"
+                                  : "Wallet Top-up"}
                               </span>
                             </td>
                             <td className="border border-border px-4 py-2">
-                              <div className="font-medium">{request.user?.email || request.userEmail}</div>
+                              <div className="font-medium">
+                                {request.user?.email || request.userEmail}
+                              </div>
                             </td>
                             <td className="border border-border px-4 py-2">
-                              {request.type === 'wallet_topup' && request.amount 
-                                ? `$${request.amount}` 
-                                : '-'}
+                              {request.type === "wallet_topup" && request.amount
+                                ? `$${request.amount}`
+                                : "-"}
                             </td>
                             <td className="border border-border px-4 py-2">
-                              <span className={`px-2 py-1 rounded text-sm flex items-center gap-1 ${
-                                request.status === 'approved' ? 'bg-green-100 text-green-800' :
-                                'bg-red-100 text-red-800'
-                              }`}>
+                              <span
+                                className={`px-2 py-1 rounded text-sm flex items-center gap-1 ${
+                                  request.status === "approved"
+                                    ? "bg-green-100 text-green-800"
+                                    : "bg-red-100 text-red-800"
+                                }`}
+                              >
                                 {getStatusIcon(request.status)}
-                                {request.status.charAt(0).toUpperCase() + request.status.slice(1)}
+                                {request.status.charAt(0).toUpperCase() +
+                                  request.status.slice(1)}
                               </span>
                             </td>
                             <td className="border border-border px-4 py-2">
-                              {request.status === 'approved' ? request.approvedBy : request.rejectedBy}
+                              {request.status === "approved"
+                                ? request.approvedBy
+                                : request.rejectedBy}
                             </td>
                             <td className="border border-border px-4 py-2">
-                              {request.status === 'approved' 
+                              {request.status === "approved"
                                 ? formatDate(request.approvedAt!)
                                 : formatDate(request.rejectedAt!)}
                             </td>
@@ -521,7 +630,8 @@ export default function AdminPage() {
                         ))}
                     </tbody>
                   </table>
-                  {requests.filter(r => r.status !== 'pending').length === 0 && (
+                  {requests.filter((r) => r.status !== "pending").length ===
+                    0 && (
                     <div className="text-center py-8 text-muted-foreground">
                       No approval history
                     </div>
@@ -534,7 +644,9 @@ export default function AdminPage() {
       </main>
 
       {/* Rejection Modal */}
-      <div className={`fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 ${showRejectionModal ? 'block' : 'hidden'}`}>
+      <div
+        className={`fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 ${showRejectionModal ? "block" : "hidden"}`}
+      >
         <div className="bg-card rounded-lg shadow-lg max-w-md w-full mx-4">
           <div className="p-6">
             <h2 className="text-xl font-bold mb-2">Reject Request</h2>
@@ -543,7 +655,10 @@ export default function AdminPage() {
             </p>
             <div className="space-y-4">
               <div>
-                <label htmlFor="rejectionReason" className="text-sm font-medium">
+                <label
+                  htmlFor="rejectionReason"
+                  className="text-sm font-medium"
+                >
                   Rejection Reason
                 </label>
                 <input
@@ -564,7 +679,7 @@ export default function AdminPage() {
                 Cancel
               </button>
               <button
-                onClick={() => processRequest(selectedRequest!._id, 'reject')}
+                onClick={() => processRequest(selectedRequest!._id, "reject")}
                 disabled={!rejectionReason || actionLoading}
                 className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 disabled:opacity-50"
               >
