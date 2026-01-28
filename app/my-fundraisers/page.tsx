@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { useUser } from "@clerk/nextjs";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -23,6 +24,7 @@ import {
   Star,
   Edit,
   Eye,
+  ArrowLeft,
 } from "lucide-react";
 
 interface Fundraiser {
@@ -39,6 +41,7 @@ interface Fundraiser {
 
 export default function MyFundraisersPage() {
   const { user } = useUser();
+  const router = useRouter();
   const [fundraisers, setFundraisers] = useState<Fundraiser[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -68,6 +71,13 @@ export default function MyFundraisersPage() {
       <SignedIn>
         <div className="min-h-screen bg-background py-12">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <button
+              onClick={() => router.back()}
+              className="flex items-center gap-2 text-muted-foreground hover:text-foreground mb-6 transition-colors"
+            >
+              <ArrowLeft className="w-5 h-5" />
+              Back
+            </button>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               <div className="bg-card rounded-lg shadow-sm p-8">
                 <h3 className="text-2xl font-semibold mb-4">My Fundraisers</h3>

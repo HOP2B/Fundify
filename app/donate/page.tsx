@@ -22,6 +22,7 @@ import {
   Star,
   Home,
   Car,
+  ArrowLeft,
 } from "lucide-react";
 
 const categories = [
@@ -158,13 +159,20 @@ export default function StartFundmePage() {
 
   const getStepTitle = (step: number): string => {
     switch (step) {
-      case 1: return "Choose Category";
-      case 2: return "Who's it for?";
-      case 3: return "Set Goal";
-      case 4: return "Add Photo";
-      case 5: return "Tell Your Story";
-      case 6: return "Review & Create";
-      default: return "Step";
+      case 1:
+        return "Choose Category";
+      case 2:
+        return "Who's it for?";
+      case 3:
+        return "Set Goal";
+      case 4:
+        return "Add Photo";
+      case 5:
+        return "Tell Your Story";
+      case 6:
+        return "Review & Create";
+      default:
+        return "Step";
     }
   };
 
@@ -435,6 +443,13 @@ export default function StartFundmePage() {
           </div>
 
           <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <button
+              onClick={() => router.back()}
+              className="flex items-center gap-2 text-muted-foreground hover:text-foreground mb-6 transition-colors"
+            >
+              <ArrowLeft className="w-5 h-5" />
+              Back
+            </button>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               {/* Left Panel - Info */}
               <div className="bg-card/50 backdrop-blur-sm rounded-2xl shadow-xl border border-border/50 p-8 lg:p-12">
@@ -445,8 +460,8 @@ export default function StartFundmePage() {
                     </h3>
                     <p className="text-lg text-muted-foreground leading-relaxed">
                       Create a fundraiser to support causes that matter to you.
-                      Choose a category, set your goal, and share your story with
-                      the world.
+                      Choose a category, set your goal, and share your story
+                      with the world.
                     </p>
                   </div>
 
@@ -473,22 +488,26 @@ export default function StartFundmePage() {
                   {/* Stats */}
                   <div className="grid grid-cols-3 gap-4 mt-8 pt-6 border-t border-border/50">
                     <div className="text-center">
-                      <div className="text-2xl font-bold text-primary">$1B+</div>
+                      <div className="text-2xl font-bold text-primary">
+                        $1B+
+                      </div>
                       <div className="text-xs text-muted-foreground">
                         Raised
                       </div>
                     </div>
                     <div className="text-center">
-                      <div className="text-2xl font-bold text-primary">50M+</div>
+                      <div className="text-2xl font-bold text-primary">
+                        50M+
+                      </div>
                       <div className="text-xs text-muted-foreground">
                         Donors
                       </div>
                     </div>
                     <div className="text-center">
-                      <div className="text-2xl font-bold text-primary">100%</div>
-                      <div className="text-xs text-muted-foreground">
-                        Safe
+                      <div className="text-2xl font-bold text-primary">
+                        100%
                       </div>
+                      <div className="text-xs text-muted-foreground">Safe</div>
                     </div>
                   </div>
                 </div>
@@ -519,9 +538,7 @@ export default function StartFundmePage() {
                   </div>
 
                   {/* Form Content */}
-                  <div className="space-y-6">
-                    {renderStep()}
-                  </div>
+                  <div className="space-y-6">{renderStep()}</div>
 
                   {/* Navigation Buttons */}
                   <div className="flex justify-between items-center pt-6 border-t border-border/50">

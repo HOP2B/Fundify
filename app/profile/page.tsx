@@ -1,10 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { useUser } from "@clerk/nextjs";
 import { SignedIn, SignedOut, RedirectToSignIn } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
-import { Wallet, TrendingUp, Heart, DollarSign } from "lucide-react";
+import { Wallet, TrendingUp, Heart, DollarSign, ArrowLeft } from "lucide-react";
 
 interface PlatformWallet {
   totalTips: number;
@@ -14,6 +15,7 @@ interface PlatformWallet {
 
 export default function ProfilePage() {
   const { user } = useUser();
+  const router = useRouter();
   const [wallet, setWallet] = useState<PlatformWallet | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -43,6 +45,13 @@ export default function ProfilePage() {
       <SignedIn>
         <div className="min-h-screen bg-background py-12">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <button
+              onClick={() => router.back()}
+              className="flex items-center gap-2 text-muted-foreground hover:text-foreground mb-6 transition-colors"
+            >
+              <ArrowLeft className="w-5 h-5" />
+              Back
+            </button>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               <div className="bg-card rounded-lg shadow-sm p-8">
                 <h3 className="text-2xl font-semibold mb-4">My Profile</h3>
