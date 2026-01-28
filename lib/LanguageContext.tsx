@@ -23,7 +23,7 @@ const translations = {
     fundraise: "Fundraise",
     about: "About",
     signIn: "Sign in",
-    startGoFundMe: "Start a GoFundMe",
+    startGoFundMe: "Start a Fundify",
     searchFundraisers: "Search Fundraisers",
     findFundraisers: "Find fundraisers by title, description, or category",
     searchPlaceholder: "Search fundraisers...",
