@@ -27,6 +27,7 @@ export default function FundraiserDetailPage() {
   const [fundraiser, setFundraiser] = useState<Fundraiser | null>(null);
   const [loading, setLoading] = useState(true);
   const [donationAmount, setDonationAmount] = useState("");
+  const [tipPercentage, setTipPercentage] = useState(0);
   const [isDonating, setIsDonating] = useState(false);
 
   useEffect(() => {
@@ -58,6 +59,10 @@ export default function FundraiserDetailPage() {
       return;
     }
 
+    const baseAmount = parseFloat(donationAmount);
+    const tipAmount = baseAmount * (tipPercentage / 100);
+    const totalAmount = baseAmount + tipAmount;
+
     setIsDonating(true);
     try {
       const response = await fetch(`/api/fundraisers/${params.id}`, {
@@ -66,13 +71,19 @@ export default function FundraiserDetailPage() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          amount: parseFloat(donationAmount),
+          amount: baseAmount,
+          tipPercentage: tipPercentage,
+          tipAmount: tipAmount,
+          totalAmount: totalAmount,
         }),
       });
 
       if (response.ok) {
-        alert("Thank you for your donation!");
+        alert(
+          `Thank you for your donation!${tipPercentage > 0 ? ` (Including ${tipPercentage}% tip)` : ""}`,
+        );
         setDonationAmount("");
+        setTipPercentage(0);
         // Refresh fundraiser data
         fetchFundraiser();
       } else {
@@ -188,13 +199,47 @@ export default function FundraiserDetailPage() {
                           step="0.01"
                         />
                       </div>
+
+                      <div>
+                        <label className="block text-sm font-medium text-foreground mb-3">
+                          Add a tip for Fundify
+                        </label>
+                        <div className="grid grid-cols-4 gap-2">
+                          {[0, 5, 10, 15].map((percentage) => (
+                            <button
+                              key={percentage}
+                              type="button"
+                              onClick={() => setTipPercentage(percentage)}
+                              className={`px-3 py-2 text-sm font-medium rounded-md border transition-colors ${
+                                tipPercentage === percentage
+                                  ? "bg-primary text-primary-foreground border-primary"
+                                  : "bg-background text-foreground border-border hover:border-primary/50"
+                              }`}
+                            >
+                              {percentage}%
+                            </button>
+                          ))}
+                        </div>
+                        {tipPercentage > 0 && donationAmount && (
+                          <div className="mt-2 text-sm text-muted-foreground">
+                            Tip: $
+                            {(
+                              parseFloat(donationAmount) *
+                              (tipPercentage / 100)
+                            ).toFixed(2)}
+                          </div>
+                        )}
+                      </div>
+
                       <Button
                         onClick={handleDonate}
                         disabled={isDonating}
                         className="w-full"
                         size="lg"
                       >
-                        {isDonating ? "Processing..." : "Donate Now"}
+                        {isDonating
+                          ? "Processing..."
+                          : `Donate ${donationAmount ? `$${(parseFloat(donationAmount) * (1 + tipPercentage / 100)).toFixed(2)}` : "Now"}`}
                       </Button>
                     </div>
                   </div>

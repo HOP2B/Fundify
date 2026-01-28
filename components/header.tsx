@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Search, ChevronDown, Menu, X, Heart } from "lucide-react";
+import { Search, ChevronDown, Menu, X, Heart, User } from "lucide-react";
 import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { useLanguage } from "@/lib/LanguageContext";
 
@@ -86,6 +86,13 @@ export function Header() {
               </Link>
             </SignedOut>
             <SignedIn>
+              <Link
+                href="/profile"
+                className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-foreground hover:text-muted-foreground transition-colors"
+              >
+                <User className="w-4 h-4" />
+                Profile
+              </Link>
               <UserButton />
             </SignedIn>
           </nav>
