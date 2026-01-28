@@ -99,9 +99,10 @@ export default function FundraisersPage() {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredFundraisers.map((fundraiser) => (
-              <div
+              <Link
                 key={fundraiser._id}
-                className="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow"
+                href={`/fundraisers/${fundraiser._id}`}
+                className="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow block"
               >
                 <div className="aspect-video bg-gray-200 relative">
                   {fundraiser.image ? (
@@ -152,7 +153,7 @@ export default function FundraisersPage() {
                   </div>
                   <Button className="w-full">Donate Now</Button>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         )}
