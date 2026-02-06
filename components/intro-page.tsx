@@ -281,7 +281,7 @@ const IntroPage: React.FC = () => {
             Make a difference.
           </div>
           <a
-            href="/fundraisers"
+            href="/"
             className="text-[8vw] md:text-[5vw] font-bold leading-none hover:text-gray-400 transition-colors"
           >
             Donate with Fundify today!
