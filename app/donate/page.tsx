@@ -184,46 +184,53 @@ export default function StartFundmePage() {
             <h2 className="text-2xl font-semibold text-foreground">
               Select a Category
             </h2>
-            <div className="grid grid-cols-2 gap-4">
-              {categories.map((category) => {
+            <div className="grid grid-cols-3 gap-4">
+              {categories.map((category, index) => {
                 const Icon = category.icon;
                 const isSelected = formData.category === category.id;
                 return (
                   <button
                     key={category.id}
                     onClick={() => handleInputChange("category", category.id)}
-                    className={`group p-4 rounded-lg border-2 transition-all duration-300 hover:scale-105 ${
+                    className={`group relative p-6 rounded-2xl border-2 transition-all duration-500 hover:scale-110 hover:shadow-2xl hover:shadow-purple-500/20 overflow-hidden ${
                       isSelected
-                        ? "bg-primary border-primary text-primary-foreground"
-                        : "bg-card border-border hover:border-primary/50"
+                        ? "bg-gradient-to-br from-blue-500 to-purple-600 border-transparent text-white shadow-xl shadow-blue-500/30"
+                        : "bg-white/80 backdrop-blur-sm border-gray-200 hover:border-purple-300 hover:bg-gradient-to-br hover:from-purple-50 hover:to-blue-50"
                     }`}
+                    style={{ animationDelay: `${index * 50}ms` }}
                   >
-                    <div className="flex flex-col items-center gap-2">
+                    {isSelected && (
+                      <div className="absolute inset-0 bg-gradient-to-r from-blue-400/20 to-purple-400/20 animate-pulse" />
+                    )}
+                    <div className="relative flex flex-col items-center gap-3">
                       <div
-                        className={`p-2 rounded-full transition-colors ${
+                        className={`p-3 rounded-full transition-all duration-300 ${
                           isSelected
-                            ? "bg-primary-foreground/20"
-                            : "bg-primary/10 group-hover:bg-primary/20"
+                            ? "bg-white/20 scale-110"
+                            : "bg-gradient-to-br from-purple-100 to-blue-100 group-hover:from-purple-200 group-hover:to-blue-200"
                         }`}
                       >
                         <Icon
-                          className={`w-6 h-6 ${
+                          className={`w-8 h-8 transition-colors duration-300 ${
                             isSelected
-                              ? "text-primary-foreground"
-                              : "text-primary"
+                              ? "text-white"
+                              : "text-purple-600 group-hover:text-purple-700"
                           }`}
                         />
                       </div>
                       <span
-                        className={`text-sm font-medium text-center ${
+                        className={`text-sm font-semibold text-center transition-colors duration-300 ${
                           isSelected
-                            ? "text-primary-foreground"
-                            : "text-foreground"
+                            ? "text-white"
+                            : "text-gray-700 group-hover:text-purple-700"
                         }`}
                       >
                         {category.name}
                       </span>
                     </div>
+                    {isSelected && (
+                      <div className="absolute top-2 right-2 w-3 h-3 bg-white rounded-full animate-ping" />
+                    )}
                   </button>
                 );
               })}
@@ -244,29 +251,55 @@ export default function StartFundmePage() {
               <button
                 type="button"
                 onClick={() => handleInputChange("forWhom", "myself")}
-                className={`w-full p-4 border-2 rounded-lg text-left ${
+                className={`group w-full p-6 border-2 rounded-2xl text-left transition-all duration-300 hover:scale-105 hover:shadow-lg ${
                   formData.forWhom === "myself"
-                    ? "border-primary bg-primary/10"
-                    : "border-border"
+                    ? "border-blue-500 bg-gradient-to-r from-blue-50 to-purple-50 shadow-lg shadow-blue-500/20"
+                    : "border-gray-200 hover:border-purple-300 bg-white/80 backdrop-blur-sm"
                 }`}
               >
-                <div className="font-medium">Myself</div>
-                <div className="text-sm text-muted-foreground">
-                  I'm raising money for my own cause
+                <div className="flex items-center gap-4">
+                  <div className={`p-3 rounded-full transition-all duration-300 ${
+                    formData.forWhom === "myself"
+                      ? "bg-blue-500 text-white"
+                      : "bg-purple-100 text-purple-600 group-hover:bg-purple-200"
+                  }`}>
+                    <Heart className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <div className={`font-semibold text-lg transition-colors duration-300 ${
+                      formData.forWhom === "myself" ? "text-blue-700" : "text-gray-800"
+                    }`}>Myself</div>
+                    <div className="text-sm text-muted-foreground">
+                      I'm raising money for my own cause
+                    </div>
+                  </div>
                 </div>
               </button>
               <button
                 type="button"
                 onClick={() => handleInputChange("forWhom", "someone_else")}
-                className={`w-full p-4 border-2 rounded-lg text-left ${
+                className={`group w-full p-6 border-2 rounded-2xl text-left transition-all duration-300 hover:scale-105 hover:shadow-lg ${
                   formData.forWhom === "someone_else"
-                    ? "border-primary bg-primary/10"
-                    : "border-border"
+                    ? "border-purple-500 bg-gradient-to-r from-purple-50 to-pink-50 shadow-lg shadow-purple-500/20"
+                    : "border-gray-200 hover:border-purple-300 bg-white/80 backdrop-blur-sm"
                 }`}
               >
-                <div className="font-medium">Someone else</div>
-                <div className="text-sm text-muted-foreground">
-                  I'm raising money for someone else's cause
+                <div className="flex items-center gap-4">
+                  <div className={`p-3 rounded-full transition-all duration-300 ${
+                    formData.forWhom === "someone_else"
+                      ? "bg-purple-500 text-white"
+                      : "bg-pink-100 text-pink-600 group-hover:bg-pink-200"
+                  }`}>
+                    <Users className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <div className={`font-semibold text-lg transition-colors duration-300 ${
+                      formData.forWhom === "someone_else" ? "text-purple-700" : "text-gray-800"
+                    }`}>Someone else</div>
+                    <div className="text-sm text-muted-foreground">
+                      I'm raising money for someone else's cause
+                    </div>
+                  </div>
                 </div>
               </button>
             </div>
@@ -282,22 +315,31 @@ export default function StartFundmePage() {
             <h2 className="text-2xl font-semibold text-foreground">
               How much do you need to raise?
             </h2>
-            <div>
-              <label className="block text-sm font-medium text-foreground mb-2">
+            <div className="space-y-3">
+              <label className="block text-lg font-semibold text-foreground mb-3 flex items-center gap-2">
+                <span className="text-2xl">💰</span>
                 Goal Amount ($)
               </label>
-              <input
-                type="number"
-                value={formData.goal || ""}
-                onChange={(e) =>
-                  handleInputChange("goal", parseFloat(e.target.value) || 0)
-                }
-                placeholder="5000"
-                className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-                min="1"
-              />
+              <div className="relative">
+                <div className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 font-semibold text-lg">
+                  $
+                </div>
+                <input
+                  type="number"
+                  value={formData.goal || ""}
+                  onChange={(e) =>
+                    handleInputChange("goal", parseFloat(e.target.value) || 0)
+                  }
+                  placeholder="5000"
+                  className="w-full pl-8 pr-4 py-4 text-lg border-2 border-gray-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-purple-200 focus:border-purple-400 transition-all duration-300 bg-white/80 backdrop-blur-sm"
+                  min="1"
+                />
+              </div>
               {errors.goal && (
-                <p className="text-destructive text-sm mt-1">{errors.goal}</p>
+                <p className="text-red-500 text-sm mt-2 flex items-center gap-2">
+                  <span className="text-red-500">⚠️</span>
+                  {errors.goal}
+                </p>
               )}
             </div>
           </div>
@@ -432,13 +474,14 @@ export default function StartFundmePage() {
         <RedirectToSignIn />
       </SignedOut>
       <SignedIn>
-        <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted">
-          {/* Decorative background elements */}
+        <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-100 relative overflow-hidden">
+          {/* Enhanced Decorative background elements */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
             <div className="absolute top-0 left-0 w-full h-full">
-              <div className="absolute top-20 left-10 w-72 h-72 bg-primary/5 rounded-full blur-3xl" />
-              <div className="absolute top-40 right-10 w-96 h-96 bg-primary/3 rounded-full blur-4xl" />
-              <div className="absolute bottom-20 left-1/3 w-80 h-80 bg-primary/2 rounded-full blur-3xl" />
+              <div className="absolute top-20 left-10 w-96 h-96 bg-gradient-to-r from-purple-400/20 to-pink-400/20 rounded-full blur-3xl animate-pulse" />
+              <div className="absolute top-40 right-10 w-80 h-80 bg-gradient-to-r from-blue-400/15 to-cyan-400/15 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+              <div className="absolute bottom-20 left-1/3 w-72 h-72 bg-gradient-to-r from-indigo-400/10 to-purple-400/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
+              <div className="absolute top-1/2 right-1/4 w-64 h-64 bg-gradient-to-r from-pink-300/5 to-purple-300/5 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '0.5s' }} />
             </div>
           </div>
 
@@ -518,22 +561,16 @@ export default function StartFundmePage() {
                 <div className="space-y-8">
                   {/* Progress Indicator */}
                   <div className="text-center">
-                    <div className="flex justify-center items-center gap-4 mb-4">
-                      {[1, 2, 3, 4, 5, 6].map((step) => (
+                    <div className="mb-4">
+                      <div className="text-sm text-muted-foreground font-medium mb-2">
+                        Step {currentStep} of 6 • {getStepTitle(currentStep)}
+                      </div>
+                      <div className="w-full bg-muted rounded-full h-3 overflow-hidden">
                         <div
-                          key={step}
-                          className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold transition-all duration-300 ${
-                            step <= currentStep
-                              ? "bg-gradient-to-r from-primary to-primary/60 text-white shadow-lg shadow-primary/20"
-                              : "bg-muted text-muted-foreground border-2 border-border"
-                          }`}
-                        >
-                          {step}
-                        </div>
-                      ))}
-                    </div>
-                    <div className="text-sm text-muted-foreground font-medium">
-                      Step {currentStep} of 6 • {getStepTitle(currentStep)}
+                          className="bg-gradient-to-r from-green-400 to-green-600 h-3 rounded-full transition-all duration-500 ease-out"
+                          style={{ width: `${(currentStep / 6) * 100}%` }}
+                        ></div>
+                      </div>
                     </div>
                   </div>
 

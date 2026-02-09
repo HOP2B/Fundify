@@ -143,56 +143,7 @@ export default function DonatePage() {
             </button>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              {/* Left Panel - Fundraiser Info */}
-              <div className="bg-card/50 backdrop-blur-sm rounded-2xl shadow-xl border border-border/50 p-8">
-                <div className="space-y-6">
-                  <div>
-                    <h1 className="text-3xl font-bold text-foreground mb-4">
-                      {fundraiser.title}
-                    </h1>
-                    <p className="text-muted-foreground leading-relaxed">
-                      {fundraiser.description}
-                    </p>
-                  </div>
-
-                  {/* Progress */}
-                  <div className="space-y-2">
-                    <div className="flex justify-between text-sm">
-                      <span className="font-medium">Raised</span>
-                      <span className="font-bold text-primary">
-                        ${fundraiser.raised?.toLocaleString() || 0}
-                      </span>
-                    </div>
-                    <div className="w-full bg-muted rounded-full h-3">
-                      <div
-                        className="bg-gradient-to-r from-primary to-primary/60 h-3 rounded-full transition-all duration-500"
-                        style={{
-                          width: `${Math.min((fundraiser.raised / fundraiser.goal) * 100, 100)}%`,
-                        }}
-                      />
-                    </div>
-                    <div className="flex justify-between text-sm text-muted-foreground">
-                      <span>Goal: ${fundraiser.goal.toLocaleString()}</span>
-                      <span>
-                        {Math.round(
-                          (fundraiser.raised / fundraiser.goal) * 100,
-                        )}
-                        %
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Category */}
-                  <div className="flex items-center gap-2">
-                    <Heart className="w-5 h-5 text-primary" />
-                    <span className="text-sm font-medium capitalize">
-                      {fundraiser.category}
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Right Panel - Donation Form */}
+              {/* Left Panel - Donation Form */}
               <div className="bg-card/80 backdrop-blur-sm rounded-2xl shadow-xl border border-border/50 p-8">
                 <div className="space-y-6">
                   <div>
@@ -339,6 +290,55 @@ export default function DonatePage() {
                       </>
                     )}
                   </Button>
+                </div>
+              </div>
+
+              {/* Right Panel - Fundraiser Info */}
+              <div className="bg-card/50 backdrop-blur-sm rounded-2xl shadow-xl border border-border/50 p-8">
+                <div className="space-y-6">
+                  <div>
+                    <h1 className="text-3xl font-bold text-foreground mb-4">
+                      {fundraiser.title}
+                    </h1>
+                    <p className="text-muted-foreground leading-relaxed">
+                      {fundraiser.description}
+                    </p>
+                  </div>
+
+                  {/* Progress */}
+                  <div className="space-y-2">
+                    <div className="flex justify-between text-sm">
+                      <span className="font-medium">Raised</span>
+                      <span className="font-bold text-primary">
+                        ${fundraiser.raised?.toLocaleString() || 0}
+                      </span>
+                    </div>
+                    <div className="w-full bg-muted rounded-full h-3">
+                      <div
+                        className="bg-gradient-to-r from-primary to-primary/60 h-3 rounded-full transition-all duration-500"
+                        style={{
+                          width: `${Math.min((fundraiser.raised / fundraiser.goal) * 100, 100)}%`,
+                        }}
+                      />
+                    </div>
+                    <div className="flex justify-between text-sm text-muted-foreground">
+                      <span>Goal: ${fundraiser.goal.toLocaleString()}</span>
+                      <span>
+                        {Math.round(
+                          (fundraiser.raised / fundraiser.goal) * 100,
+                        )}
+                        %
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Category */}
+                  <div className="flex items-center gap-2">
+                    <Heart className="w-5 h-5 text-primary" />
+                    <span className="text-sm font-medium capitalize">
+                      {fundraiser.category}
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
