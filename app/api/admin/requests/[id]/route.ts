@@ -4,7 +4,7 @@ import ApprovalRequest from '@/lib/models/ApprovalRequest';
 import Fundraiser from '@/lib/models/Fundraiser';
 import User from '@/lib/models/User';
 
-export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
+export async function PUT(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     await connectToDatabase();
     
