@@ -22,12 +22,12 @@ const ApprovalRequestSchema = new mongoose.Schema({
   // For fundraiser requests
   fundraiserId: {
     type: String,
-    required: function() { return this.type === 'fundraiser'; },
+    required: function(this: { type?: string }) { return this.type === 'fundraiser'; },
   },
   // For wallet top-up requests
   amount: {
     type: Number,
-    required: function() { return this.type === 'wallet_topup'; },
+    required: function(this: { type?: string }) { return this.type === 'wallet_topup'; },
     min: 1,
   },
   reason: {
