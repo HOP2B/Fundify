@@ -8,7 +8,7 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
   try {
     await connectToDatabase();
     
-    const { id } = params;
+    const { id } = await params;
     const body = await request.json();
     const { action, adminEmail, rejectionReason } = body;
 
